@@ -30,6 +30,10 @@ cc.Class({
         pNode : cc.Layout,
         lb_score: cc.Label,
         lb_time: cc.Label,
+        squre_prefab: {
+            default: null,
+            type: cc.Prefab,
+        }
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -47,6 +51,8 @@ cc.Class({
 
     initPNode: function() {
         this.pNode;
+        console.log('-----' + this.pNode.node.getPosition().x);
+        
     },
 
     addTotalScore: function (addScore) {

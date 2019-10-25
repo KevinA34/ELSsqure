@@ -536,7 +536,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "layout",
+    "_name": "act_layout",
     "_objFlags": 0,
     "_parent": {
       "__id__": 2
@@ -568,13 +568,13 @@
     },
     "_anchorPoint": {
       "__type__": "cc.Vec2",
-      "x": 0.5,
-      "y": 0.5
+      "x": 0,
+      "y": 0
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 0,
-      "y": -60,
+      "x": -300,
+      "y": -570,
       "z": 0
     },
     "_scale": {
@@ -695,6 +695,9 @@
     },
     "lb_time": {
       "__id__": 9
+    },
+    "squre_prefab": {
+      "__uuid__": "7628108d-98de-4117-932c-df6fd71ae035"
     },
     "_id": "0bV7ej5d1FKI0SBzj+FrkO"
   }
