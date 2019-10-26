@@ -8,29 +8,18 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
+// var square = require("Square");
+
 cc.Class({
     extends: cc.Component,
 
     properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
         pNode : cc.Layout,
         lb_score: cc.Label,
         lb_time: cc.Label,
-        squre_prefab: {
+        nextSq: null,
+        bg_sqNext: cc.Layout,
+        sqBase_prefab: {
             default: null,
             type: cc.Prefab,
         }
@@ -47,12 +36,31 @@ cc.Class({
             that.lb_time.string = "时间：" + that.timeCnt;
         }, 1);
         this.initPNode();
+        this.randomSqNext();
     },
 
-    initPNode: function() {
-        this.pNode;
-        console.log('-----' + this.pNode.node.getPosition().x);
-        
+    randomSqNext: function() {
+        if (!this.nextSq) {
+            this.nextSq = cc.instantiate(this.sqBase_prefab);
+            this.bg_sqNext.node.addChild(this.nextSq);
+        }
+        var type = Math.floor(Math.random() * 7) + 1;
+        var dir = Math.floor(Math.random() * 3);
+        this.nextSq.getComponent("SquareBase").setDataAndDir(type, dir);
+    },
+
+    initPNode: function(s_prefab) {
+        this.actSqPre = cc.instantiate(this.sqBase_prefab);
+        this.pNode.node.addChild(this.actSqPre);
+
+        this.actSqPre.x = 200;
+        this.actSqPre.y = 300;
+
+
+        var pos = this.pNode.node.getPosition();
+        console.log('------- x : ' + pos.x);
+        console.log('------- y : ' + pos.y);
+
     },
 
     addTotalScore: function (addScore) {
