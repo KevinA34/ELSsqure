@@ -79,8 +79,10 @@ cc.Class({
             }
         }
         this.actSqPre = cc.instantiate(this.sqBase_prefab);
+        // this.actSqPre.setAnchorPoint(0, 0);
         this.pNode.node.addChild(this.actSqPre);
-        this.actSqPre.getComponent("SquareBase");
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        squareBase.setOriginPos(column/2 - 2, line - 2);
         this.actSqPre.x = 60 * column/2;
         this.actSqPre.y = 60 * (line - 2);
     },
@@ -96,6 +98,9 @@ cc.Class({
     onKeyUp: function(event) {
         console.log('-------------event.keyCode' + event.keyCode);
         switch (event.keyCode) {
+            case cc.macro.KEY.w:
+                this.moveRotate();
+                break;
             case cc.macro.KEY.a:
                 this.moveLeft();
                 break;
@@ -112,19 +117,40 @@ cc.Class({
                 break;
         }
     },
+    moveRotate: function() {
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        if (squareBase.canRotatea(this.isValid.bind(this))) {
+            squareBase.rotateSquare();
+        }
+    },
     moveLeft: function() {
-
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        if (squareBase.canLeft(this.isValid.bind(this))) {
+            this.actSqPre.x -= 60;
+            squareBase.setOriginPos(squareBase.originPos.x - 1,squareBase.originPos.y);
+        }
     },
     moveRight: function() {
-
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        if (squareBase.canRight(this.isValid.bind(this))) {
+            this.actSqPre.x += 60;
+            squareBase.setOriginPos(squareBase.originPos.x + 1,squareBase.originPos.y);
+        }
     },
     moveDown: function() {
-
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        if (squareBase.canMoveDown(this.isValid.bind(this))) {
+            this.actSqPre.y -= 60;
+            squareBase.setOriginPos(squareBase.originPos.x,squareBase.originPos.y - 1);
+        }
     },
-    fallDow: function() {
-
+    fallDown: function() {
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        while(squareBase.canFallDown(this.isValid.bind(this)) && this.actSqPre.y > 0) {
+            this.actSqPre.y -= 60;
+            squareBase.setOriginPos(squareBase.originPos.x,squareBase.originPos.y - 1);
+        }
     },
-
     refeshPNode: function() {
         for (var i=0; i<17; i++) {
             for (var j=0; j<10; j++) {
@@ -141,13 +167,23 @@ cc.Class({
             }
         }
     },
-    isValid: function() {
 
+    isValid: function(origin, data) {
+        for (var i=0; i<data.length; i++) {
+            for (var j=0; j<data[i].length; j++) {
+                if (data[i][j] == 1) {
+                    if (!this.checkSq(origin, j, i)) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     },
 
     // 检查 没有越界、并且没有已经放下的
     checkSq: function(origin, x, y) {
-        if (origin.x + x > 10) {
+        if (origin.x + x >= 10) {
             return false;
         }
         else if (origin.x + x < 0) {
@@ -159,7 +195,7 @@ cc.Class({
         else if (origin.y + y < 0) {
             return false;
         }
-        else if (this.actSqArr[origin.x + x][origin.y + y].getComponent("SquareBase") == 2) {
+        else if (this.actSqArr[origin.y + y][origin.x + x].getComponent("Square").getStatus() == 2) {
             return false;
         }
         return true;

@@ -13,6 +13,10 @@ var SquareBase = cc.Class({
     
     onLoad: function() {
         this.layoutArr =this.node.getChildren();
+        this.originPos = {
+            x: 0,
+            y: 0
+        }
         this.resetDataAndDir();
     },
 
@@ -20,6 +24,13 @@ var SquareBase = cc.Class({
         this.direction = Math.floor(Math.random() * 4);
         this.type = Math.floor(Math.random() * 7) + 1;
         this.setDataAndDir(this.type, this.direction);
+    },
+    setOriginPos: function(x, y) {
+        this.originPos.x = x;
+        this.originPos.y = y;
+
+        console.log('-------x : ' + this.originPos.x);
+        console.log('-------y : ' + this.originPos.y);
     },
 
     rotateSquare: function() {
@@ -58,20 +69,37 @@ var SquareBase = cc.Class({
         }
     },
 
-    canDown: function(valiad) {
-        for (var i=0; i<4; i++) {
-            for (var j=0; j<4; j++) {
-                valiad(origin.x , i, j);
-            }
+    canMoveDown: function(isValiad) {
+        var nextStepMap = {};
+        nextStepMap.x = this.originPos.x;
+        nextStepMap.y = this.originPos.y - 1;
+        return isValiad(nextStepMap, this.dataBase);
+    },
+    canRight: function(isValiad) {
+        var nextStepMap = {};
+        nextStepMap.x = this.originPos.x + 1;
+        nextStepMap.y = this.originPos.y;
+        return isValiad(nextStepMap, this.dataBase);
+    },
+    canLeft: function(isValiad) {
+        var nextStepMap = {};
+        nextStepMap.x = this.originPos.x - 1;
+        nextStepMap.y = this.originPos.y;
+        return isValiad(nextStepMap, this.dataBase);
+    },
+    canRotatea: function(isValiad) {
+        var nextDir = this.direction + 1;
+        if (nextDir > 3) {
+            nextDir = 0;
         }
-        ;
+        var nextData = sqData["Square" + this.type]["dir" + nextDir];
+
+        return isValiad(this.originPos, nextData);
     },
-
-    canRight: function() {
-
-    },
-
-    canLeft: function() {
-
+    canFallDown: function(isValiad) {
+        var nextStepMap = {};
+        nextStepMap.x = this.originPos.x;
+        nextStepMap.y = this.originPos.y - 1;
+        return isValiad(nextStepMap, this.dataBase);
     },
 });
