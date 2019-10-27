@@ -8,8 +8,6 @@
 //  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
 //  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
 
-// var square = require("Square");
-
 cc.Class({
     extends: cc.Component,
 
@@ -19,10 +17,21 @@ cc.Class({
         lb_time: cc.Label,
         nextSq: null,
         bg_sqNext: cc.Layout,
+        // nextSq: {
+        //     default: null,
+        //     type: cc.Prefab
+        // },
         sqBase_prefab: {
             default: null,
             type: cc.Prefab,
-        }
+        },
+        sq_prefab: {
+            default: null,
+            type: cc.Prefab,
+        },
+        actSqArr: [
+
+        ],
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -37,30 +46,123 @@ cc.Class({
         }, 1);
         this.initPNode();
         this.randomSqNext();
+        
+        this.initTouchEvent();
     },
 
     randomSqNext: function() {
-        if (!this.nextSq) {
-            this.nextSq = cc.instantiate(this.sqBase_prefab);
-            this.bg_sqNext.node.addChild(this.nextSq);
-        }
+        this.nextSq = this.bg_sqNext.node.getChildByName("nextSq");
         var type = Math.floor(Math.random() * 7) + 1;
         var dir = Math.floor(Math.random() * 3);
         this.nextSq.getComponent("SquareBase").setDataAndDir(type, dir);
     },
 
     initPNode: function(s_prefab) {
+        var line = 17;
+        var column = 10;
+
+        for (var i=0; i<line; i++) {
+            if (!this.actSqArr[i]) {
+                this.actSqArr[i] = [];
+            }
+            for (var j=0; j<column; j++) {
+                var _node;
+                if (!this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)) {
+                    _node = cc.instantiate(this.sq_prefab);
+                    _node.setName("s" + (i + 1) + "_" + j);
+                    this.pNode.node.addChild(_node);
+                } else {
+                    _node = this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)
+                }
+                _node.setPosition(30 + j * 60, 30+i*60);
+                this.actSqArr[i].push(_node);
+            }
+        }
         this.actSqPre = cc.instantiate(this.sqBase_prefab);
         this.pNode.node.addChild(this.actSqPre);
+        this.actSqPre.getComponent("SquareBase");
+        this.actSqPre.x = 60 * column/2;
+        this.actSqPre.y = 60 * (line - 2);
+    },
 
-        this.actSqPre.x = 200;
-        this.actSqPre.y = 300;
+    initTouchEvent: function() {
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    },
 
+    onKeyDown: function(event) {
+        
+    },
+    onKeyUp: function(event) {
+        console.log('-------------event.keyCode' + event.keyCode);
+        switch (event.keyCode) {
+            case cc.macro.KEY.a:
+                this.moveLeft();
+                break;
+            case cc.macro.KEY.d:
+                this.moveRight();
+                break;
+            case cc.macro.KEY.s:
+                this.moveDown();
+                break;
+            case cc.macro.KEY.space:
+                this.fallDown();
+                break;
+            default:
+                break;
+        }
+    },
+    moveLeft: function() {
 
-        var pos = this.pNode.node.getPosition();
-        console.log('------- x : ' + pos.x);
-        console.log('------- y : ' + pos.y);
+    },
+    moveRight: function() {
 
+    },
+    moveDown: function() {
+
+    },
+    fallDow: function() {
+
+    },
+
+    refeshPNode: function() {
+        for (var i=0; i<17; i++) {
+            for (var j=0; j<10; j++) {
+                var _node = this.actSqArr[i][j];
+                if (_node) {
+                    if (_node.getStatus() == 1) {
+                        this.actSqArr[i][j].getComponent("Square").setStatus(1);
+                    } else if (_node.getStatus() == 2) {
+                        this.actSqArr[i][j].getComponent("Square").setStatus(2);
+                    } else {
+                        this.actSqArr[i][j].getComponent("Square").setStatus(0);
+                    }
+                }
+            }
+        }
+    },
+    isValid: function() {
+
+    },
+
+    // 检查 没有越界、并且没有已经放下的
+    checkSq: function(origin, x, y) {
+        if (origin.x + x > 10) {
+            return false;
+        }
+        else if (origin.x + x < 0) {
+            return false;
+        }
+        else if (origin.y + y > 17) {
+            return false;
+        }
+        else if (origin.y + y < 0) {
+            return false;
+        }
+        else if (this.actSqArr[origin.x + x][origin.y + y].getComponent("SquareBase") == 2) {
+            return false;
+        }
+        return true;
     },
 
     addTotalScore: function (addScore) {
@@ -72,11 +174,9 @@ cc.Class({
 
     },
 
-    update (dt) {
-
-
-    },
+    // update (dt) {},
     onDetory() {
-
+        cc.systemEvent.off(cc.systemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        cc.systemEvent.off(cc.systemEvent.EventType.KEY_UP, this.onKeyUp, this);
     },
 });
