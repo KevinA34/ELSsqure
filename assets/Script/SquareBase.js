@@ -69,37 +69,37 @@ var SquareBase = cc.Class({
         }
     },
 
-    canMoveDown: function(isValiad) {
+    canMoveDown: function(isValid) {
         var nextStepMap = {};
         nextStepMap.x = this.originPos.x;
         nextStepMap.y = this.originPos.y - 1;
-        return isValiad(nextStepMap, this.dataBase);
+        return isValid(nextStepMap, this.dataBase);
     },
-    canRight: function(isValiad) {
+    canRight: function(isValid) {
         var nextStepMap = {};
         nextStepMap.x = this.originPos.x + 1;
         nextStepMap.y = this.originPos.y;
-        return isValiad(nextStepMap, this.dataBase);
+        return isValid(nextStepMap, this.dataBase);
     },
-    canLeft: function(isValiad) {
+    canLeft: function(isValid) {
         var nextStepMap = {};
         nextStepMap.x = this.originPos.x - 1;
         nextStepMap.y = this.originPos.y;
-        return isValiad(nextStepMap, this.dataBase);
+        return isValid(nextStepMap, this.dataBase);
     },
-    canRotatea: function(isValiad) {
+    canRotatea: function(isValid) {
         var nextDir = this.direction + 1;
         if (nextDir > 3) {
             nextDir = 0;
         }
         var nextData = sqData["Square" + this.type]["dir" + nextDir];
 
-        return isValiad(this.originPos, nextData);
+        return isValid(this.originPos, nextData);
     },
-    canFallDown: function(isValiad) {
+    canFallDown: function(isValid) {
         var nextStepMap = {};
         nextStepMap.x = this.originPos.x;
         nextStepMap.y = this.originPos.y - 1;
-        return isValiad(nextStepMap, this.dataBase);
+        return isValid(nextStepMap, this.dataBase);
     },
 });

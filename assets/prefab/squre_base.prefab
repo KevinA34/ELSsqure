@@ -129,7 +129,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_1",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -284,7 +284,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_2",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -439,7 +439,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_3",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -594,7 +594,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_4",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -749,7 +749,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_5",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -904,7 +904,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_6",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1059,7 +1059,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_7",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1214,7 +1214,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_8",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1369,7 +1369,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_9",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1524,7 +1524,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_10",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1679,7 +1679,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_11",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1834,7 +1834,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_12",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -1989,7 +1989,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_13",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -2144,7 +2144,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_14",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -2299,7 +2299,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_15",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },
@@ -2454,7 +2454,7 @@
   {
     "__type__": "cc.Node",
     "_name": "s_16",
-    "_objFlags": 512,
+    "_objFlags": 0,
     "_parent": {
       "__id__": 1
     },

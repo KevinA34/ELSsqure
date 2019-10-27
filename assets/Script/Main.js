@@ -82,7 +82,7 @@ cc.Class({
         // this.actSqPre.setAnchorPoint(0, 0);
         this.pNode.node.addChild(this.actSqPre);
         var squareBase = this.actSqPre.getComponent("SquareBase");
-        squareBase.setOriginPos(column/2 - 2, line - 2);
+        squareBase.setOriginPos(column/2 - 2, line - 4);
         this.actSqPre.x = 60 * column/2;
         this.actSqPre.y = 60 * (line - 2);
     },
@@ -172,7 +172,8 @@ cc.Class({
         for (var i=0; i<data.length; i++) {
             for (var j=0; j<data[i].length; j++) {
                 if (data[i][j] == 1) {
-                    if (!this.checkSq(origin, j, i)) {
+                    if (!this.checkSq(origin, j, 3-i)) {
+                        console.log('-------i : ' + (3-i) + '    j:' + j);
                         return false;
                     }
                 }
@@ -189,7 +190,7 @@ cc.Class({
         else if (origin.x + x < 0) {
             return false;
         }
-        else if (origin.y + y > 17) {
+        else if (origin.y + y >= 17) {
             return false;
         }
         else if (origin.y + y < 0) {
