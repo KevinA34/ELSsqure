@@ -70,7 +70,7 @@ cc.Class({
                 this.actSqArr[i] = [];
             }
             if (!this.actSqDataArr[i]) {
-                this.actSqDataArr[i] = 1;
+                this.actSqDataArr[i] = [];
             }
             for (var j=0; j<column; j++) {
                 var _node;
@@ -82,7 +82,7 @@ cc.Class({
                     _node = this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)
                 }
                 _node.setPosition(30 + j * 60, 30+i*60);
-                _node.getComponent("Sqaure").setStatus(0);
+                // _node.getComponent("Square").setStatus(0);
                 this.actSqArr[i].push(_node);
                 this.actSqDataArr[i].push(0);
             }
@@ -190,18 +190,15 @@ cc.Class({
         }
     },
 
-    refeshPNode: function() {
+    refreshPNode: function() {
         for (var i=0; i<17; i++) {
             for (var j=0; j<10; j++) {
-                var _node = this.actSqArr[i][j];
-                if (_node) {
-                    if (_node.getStatus() == 1) {
-                        this.actSqArr[i][j].getComponent("Square").setStatus(1);
-                    } else if (_node.getStatus() == 2) {
-                        this.actSqArr[i][j].getComponent("Square").setStatus(2);
-                    } else {
-                        this.actSqArr[i][j].getComponent("Square").setStatus(0);
-                    }
+                if (this.actSqDataArr[i][j] == 1) {
+                    this.actSqArr[i][j].getComponent("Square").setStatus(1);
+                } else if (this.actSqDataArr[i][j] == 2) {
+                    this.actSqArr[i][j].getComponent("Square").setStatus(2);
+                } else {
+                    this.actSqArr[i][j].getComponent("Square").setStatus(0);
                 }
             }
         }
