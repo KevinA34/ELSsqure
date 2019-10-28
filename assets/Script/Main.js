@@ -120,23 +120,25 @@ cc.Class({
         } else {
             var originPos = squareBase.getOriginPos();
             var baseData = squareBase.getBaseData();
-            if (originPos.y == 17 - 4) {
-                // gameOver;
-            } else {
-                // 将 主屏幕 act_layout pNode 里对应的模块置灰
-                for (var i=0; i < baseData.length;i++) {
-                    for (var j=0; j<baseData[i].length; j++) {
-                        if (baseData[i][j] == 1) {
-                            if (this.checkSq(originPos, j, 3-i)) {
-                                // 找到对应的 pNode里面的方块， 颜色置灰色
-                                this.actSqDataArr[originPos.y+3-i][originPos.x + j] = 2;
-                                this.actSqArr[originPos.y + 3-i][originPos.x + j].getComponent("Square").setStatus(2);
-                            }
+            // 将 主屏幕 act_layout pNode 里对应的模块置灰
+            for (var i=0; i < baseData.length;i++) {
+                for (var j=0; j<baseData[i].length; j++) {
+                    if (baseData[i][j] == 1) {
+                        if (this.checkSq(originPos, j, 3-i)) {
+                            // 找到对应的 pNode里面的方块， 颜色置灰色
+                            this.actSqDataArr[originPos.y+3-i][originPos.x + j] = 2;
+                            this.actSqArr[originPos.y + 3-i][originPos.x + j].getComponent("Square").setStatus(2);
                         }
                     }
                 }
-                // 检查消行
-                // todo
+            }
+            // 检查消行
+            // todo
+
+            // 产生到结束位置没有下降 表示已经结束了
+            if (originPos.y == 17 - 4) {
+                // gameOver;
+            } else {
 
                 // 从next 里面获取下一个方块到主屏幕
                 var nextBaseData = this.nextSq.getComponent("SquareBase").getBaseData();
