@@ -81,7 +81,7 @@ cc.Class({
                     _node = this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)
                 }
                 _node.setPosition(30 + j * 60, 30+i*60);
-                // _node.getComponent("Square").setStatus(0);
+                _node.getComponent("Square").setStatus(0);
                 this.actSqArr[i].push(_node);
                 this.actSqDataArr[i].push(0);
             }
@@ -130,7 +130,7 @@ cc.Class({
                 }
             }
             // 检查消行     // todo
-            var clearColumnNum = this.clearColumn();
+            var clearColumnNum = this.clearColumnFuc();
             if (clearColumnNum) {
                 this.calcScore(clearColumnNum);
                 console.log('--------- clearColumnNum : ' + clearColumnNum);
@@ -167,8 +167,7 @@ cc.Class({
         this.addTotalScore(addScore);
     },
 
-    clearColumn: function() {
-        var hasClearColumn = false;
+    clearColumnFuc: function() {
         var clearColumnNum = 0;
         for (var i=0; i<this.sq_line; i++) {
             var isAllLineFull = false;
@@ -181,7 +180,6 @@ cc.Class({
                 }
             }
             if (isAllLineFull) {
-                hasClearColumn = true;
                 clearColumnNum++;
                 for (var j=0; j<this.sq_column; j++) {
                     if (this.actSqDataArr[i][j] == 2) {
@@ -202,6 +200,8 @@ cc.Class({
                         break;
                     }
                 }
+                // 方便下一行继续消
+                i--;
             }
         }
         return clearColumnNum;
