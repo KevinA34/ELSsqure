@@ -35,6 +35,8 @@ cc.Class({
         actSqDataArr: [
 
         ],
+        sq_column: 10,
+        sq_line: 17,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -62,17 +64,14 @@ cc.Class({
     },
 
     initPNode: function(s_prefab) {
-        var line = 17;
-        var column = 10;
-
-        for (var i=0; i<line; i++) {
+        for (var i=0; i<this.sq_line; i++) {
             if (!this.actSqArr[i]) {
                 this.actSqArr[i] = [];
             }
             if (!this.actSqDataArr[i]) {
                 this.actSqDataArr[i] = [];
             }
-            for (var j=0; j<column; j++) {
+            for (var j=0; j<this.sq_column; j++) {
                 var _node;
                 if (!this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)) {
                     _node = cc.instantiate(this.sq_prefab);
@@ -94,18 +93,16 @@ cc.Class({
     },
 
     resetActSpPre: function(baseData, dirAndType) {
-        var line = 17;
-        var column = 10;
         var squareBase = this.actSqPre.getComponent("SquareBase");
-        squareBase.setOriginPos(column/2 - 2, line - 4);
+        squareBase.setOriginPos(this.sq_column/2 - 2, this.sq_line - 4);
         if (dirAndType) {
             squareBase.setDirAndType(dirAndType.dir, dirAndType.type);
         }
         if (baseData) {
             squareBase.setBaseData(baseData);
         }
-        this.actSqPre.x = 60 * column/2;
-        this.actSqPre.y = 60 * (line - 2);
+        this.actSqPre.x = 60 * this.sq_column/2;
+        this.actSqPre.y = 60 * (this.sq_line - 2);
     },
 
     initTouchEvent: function() {
@@ -134,9 +131,10 @@ cc.Class({
             }
             // 检查消行
             // todo
+            this.clearColumn();
 
             // 产生到结束位置没有下降 表示已经结束了
-            if (originPos.y == 17 - 4) {
+            if (originPos.y == this.sq_line - 4) {
                 // gameOver;
             } else {
 
@@ -149,6 +147,10 @@ cc.Class({
                 this.randomSqNext();
             }
         }
+    },
+
+    clearColumn: function() {
+        for (var i=0; i<)
     },
 
     onKeyDown: function(event) {
@@ -212,8 +214,8 @@ cc.Class({
     },
 
     refreshPNode: function() {
-        for (var i=0; i<17; i++) {
-            for (var j=0; j<10; j++) {
+        for (var i=0; i<this.sq_line; i++) {
+            for (var j=0; j<this.sq_column; j++) {
                 if (this.actSqDataArr[i][j] == 1) {
                     this.actSqArr[i][j].getComponent("Square").setStatus(1);
                 } else if (this.actSqDataArr[i][j] == 2) {
@@ -241,13 +243,13 @@ cc.Class({
 
     // 检查 没有越界、并且没有已经放下的
     checkSq: function(origin, x, y) {
-        if (origin.x + x >= 10) {
+        if (origin.x + x >= this.sq_column) {
             return false;
         }
         else if (origin.x + x < 0) {
             return false;
         }
-        else if (origin.y + y >= 17) {
+        else if (origin.y + y >= this.sq_line) {
             return false;
         }
         else if (origin.y + y < 0) {
