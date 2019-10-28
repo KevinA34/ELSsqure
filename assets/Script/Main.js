@@ -45,15 +45,22 @@ cc.Class({
         var that = this;
         this.timeCnt = 0;
         this.lb_scoreCnt = 0;
-        this.schedule(function() {
-            that.timeCnt += 1;
-            that.lb_time.string = "时间：" + that.timeCnt;
-            that.checkFallDownAndMknext();
-        }, 1);
+        this.schedule(that.updateTimeAndActSquare, 1);
         this.initPNode();
         this.initTouchEvent();
 
         this.randomSqNext();
+    },
+
+    showHelloWorldScene: function() {
+        cc.director.loadScene("helloworld");
+    },
+
+    updateTimeAndActSquare: function() {
+        var that = this;
+        that.timeCnt += 1;
+        that.lb_time.string = "时间：" + that.timeCnt;
+        that.checkFallDownAndMknext();
     },
 
     randomSqNext: function() {
@@ -139,7 +146,7 @@ cc.Class({
             // 产生到结束位置没有下降 表示已经结束了
             if (originPos.y == this.sq_line - 4) {
                 // gameOver;
-
+                this.unschedule(this.updateTimeAndActSquare);
             } else {
 
                 // 从next 里面获取下一个方块到主屏幕
