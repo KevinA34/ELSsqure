@@ -32,6 +32,9 @@ cc.Class({
         actSqArr: [
 
         ],
+        actSqDataArr: [
+
+        ],
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -40,14 +43,15 @@ cc.Class({
         var that = this;
         this.timeCnt = 0;
         this.lb_scoreCnt = 0;
-        this.lb_time.schedule(function() {
+        this.schedule(function() {
             that.timeCnt += 1;
             that.lb_time.string = "时间：" + that.timeCnt;
+            that.checkFallDownAndMknext();
         }, 1);
         this.initPNode();
-        this.randomSqNext();
-        
         this.initTouchEvent();
+
+        this.randomSqNext();
     },
 
     randomSqNext: function() {
@@ -65,6 +69,9 @@ cc.Class({
             if (!this.actSqArr[i]) {
                 this.actSqArr[i] = [];
             }
+            if (!this.actSqDataArr[i]) {
+                this.actSqDataArr[i] = 1;
+            }
             for (var j=0; j<column; j++) {
                 var _node;
                 if (!this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)) {
@@ -75,14 +82,28 @@ cc.Class({
                     _node = this.pNode.node.getChildByName("s" + (i + 1) + "_" + j)
                 }
                 _node.setPosition(30 + j * 60, 30+i*60);
+                _node.getComponent("Sqaure").setStatus(0);
                 this.actSqArr[i].push(_node);
+                this.actSqDataArr[i].push(0);
             }
         }
         this.actSqPre = cc.instantiate(this.sqBase_prefab);
         // this.actSqPre.setAnchorPoint(0, 0);
         this.pNode.node.addChild(this.actSqPre);
+        this.resetActSpPre();
+    },
+
+    resetActSpPre: function(baseData, dirAndType) {
+        var line = 17;
+        var column = 10;
         var squareBase = this.actSqPre.getComponent("SquareBase");
         squareBase.setOriginPos(column/2 - 2, line - 4);
+        if (baseData) {
+            squareBase.setBaseData(baseData);
+        }
+        if (dirAndType) {
+            squareBase.setDirAndType(dirAndType.dir, dirAndType.type);
+        }
         this.actSqPre.x = 60 * column/2;
         this.actSqPre.y = 60 * (line - 2);
     },
@@ -90,6 +111,23 @@ cc.Class({
     initTouchEvent: function() {
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         cc.systemEvent.on(cc.SystemEvent.EventType.KEY_UP, this.onKeyUp, this);
+    },
+
+    checkFallDownAndMknext: function() {
+        var squareBase = this.actSqPre.getComponent("SquareBase");
+        if (squareBase.canMoveDown(this.isValid.bind(this))) {
+            this.moveDown();
+        } else {
+            var orignPos = squareBase.getOriginPos();
+            var baseData = squareBase.getBaseData();
+            // 将 主屏幕 act_layout pNode 里对应的模块置灰
+
+            var nextBaseData = this.nextSq.getComponent("SquareBase").getBaseData();
+            var nextDirAndtype = this.nextSq.getComponent("SquareBase").getDirAndType();
+            this.resetActSpPre(nextBaseData, nextDirAndtype);
+            this.randomSqNext();
+            
+        }
     },
 
     onKeyDown: function(event) {
@@ -151,6 +189,7 @@ cc.Class({
             squareBase.setOriginPos(squareBase.originPos.x,squareBase.originPos.y - 1);
         }
     },
+
     refeshPNode: function() {
         for (var i=0; i<17; i++) {
             for (var j=0; j<10; j++) {

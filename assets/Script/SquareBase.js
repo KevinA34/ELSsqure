@@ -29,8 +29,29 @@ var SquareBase = cc.Class({
         this.originPos.x = x;
         this.originPos.y = y;
 
-        console.log('-------x : ' + this.originPos.x);
-        console.log('-------y : ' + this.originPos.y);
+        console.log('-------x : ' + this.originPos.x + '   -------y : ' + this.originPos.y);
+    },
+
+    getOriginPos: function() {
+        return this.originPos;
+    },
+
+    getBaseData: function() {
+        return this.dataBase;
+    },
+
+    getDirAndType: function() {
+        return {dir: this.direction, type: this.type};
+    },
+
+    setDirAndType: function(dir, type) {
+        this.direction = dir;
+        this.type = type;
+    },
+
+    setBaseData: function(baseData) {
+        this.dataBase = baseData;
+        this.refreshData();
     },
 
     rotateSquare: function() {
