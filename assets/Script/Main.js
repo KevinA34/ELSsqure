@@ -129,13 +129,17 @@ cc.Class({
                     }
                 }
             }
-            // 检查消行
-            // todo
-            this.clearColumn();
+            // 检查消行     // todo
+            var clearColumnNum = this.clearColumn();
+            if (clearColumnNum) {
+                this.calcScore(clearColumnNum);
+                console.log('--------- clearColumnNum : ' + clearColumnNum);
+            }
 
             // 产生到结束位置没有下降 表示已经结束了
             if (originPos.y == this.sq_line - 4) {
                 // gameOver;
+
             } else {
 
                 // 从next 里面获取下一个方块到主屏幕
@@ -149,8 +153,58 @@ cc.Class({
         }
     },
 
+    calcScore: function(clearColumnNum) {
+        var addScore = 1;
+        if (clearColumnNum == 1) {
+            addScore = 1;
+        } else if (clearColumnNum == 2){
+            addScore = 3;
+        } else if (clearColumnNum == 3) {
+            addScore = 5;
+        } else if (clearColumnNum == 4) {
+            addScore = 10;
+        }
+        this.addTotalScore(addScore);
+    },
+
     clearColumn: function() {
-        for (var i=0; i<)
+        var hasClearColumn = false;
+        var clearColumnNum = 0;
+        for (var i=0; i<this.sq_line; i++) {
+            var isAllLineFull = false;
+            for (var j=0; j<this.sq_column; j++) {
+                if (this.actSqDataArr[i][j] != 2) {
+                    break;
+                }
+                if (j == this.sq_column - 1) {
+                    isAllLineFull = true;
+                }
+            }
+            if (isAllLineFull) {
+                hasClearColumn = true;
+                clearColumnNum++;
+                for (var j=0; j<this.sq_column; j++) {
+                    if (this.actSqDataArr[i][j] == 2) {
+                        this.actSqDataArr[i][j] = 0;
+                        this.actSqArr[i][j].getComponent("Square").setStatus(0);
+                    }
+                }
+                for (var m=i; m<this.sq_line - 1; m++) {
+                    var emptyNum = 0;
+                    for (var k=0; k<this.sq_column; k++) {
+                        this.actSqDataArr[m][k] = this.actSqDataArr[m + 1][k];
+                        this.actSqArr[m][k].getComponent("Square").setStatus(this.actSqDataArr[m+1][k]);
+                        if (this.actSqDataArr[m+1][k] == 1) {
+                            emptyNum++;
+                        }
+                    }
+                    if (emptyNum >= 10) {
+                        break;
+                    }
+                }
+            }
+        }
+        return clearColumnNum;
     },
 
     onKeyDown: function(event) {
@@ -232,7 +286,7 @@ cc.Class({
             for (var j=0; j<data[i].length; j++) {
                 if (data[i][j] == 1) {
                     if (!this.checkSq(origin, j, 3-i)) {
-                        console.log('-------i : ' + (3-i) + '    j:' + j);
+                        // console.log('-------i : ' + (3-i) + '    j:' + j);
                         return false;
                     }
                 }

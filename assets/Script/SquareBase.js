@@ -29,7 +29,7 @@ var SquareBase = cc.Class({
         this.originPos.x = x;
         this.originPos.y = y;
 
-        console.log('-------x : ' + this.originPos.x + '   -------y : ' + this.originPos.y);
+        // console.log('-------x : ' + this.originPos.x + '   -------y : ' + this.originPos.y);
     },
 
     getOriginPos: function() {
