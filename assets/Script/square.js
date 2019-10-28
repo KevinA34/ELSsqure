@@ -13,17 +13,17 @@ var Square = cc.Class({
     },
     
     onLoad: function() {
-        
+        // this.setStatus();
     },
 
     setStatus: function(status) {
-        this.status = status || 1;
+        this.status = status || 0;
         if (this.status == 1) {
             this.node.active = true;
             this.setColor(cc.color(128, 220, 130));
         } else if (this.status == 2) {
             this.node.active = true;
-            this.setColor(cc.color(cc.color(100, 100, 100)));
+            this.setColor(cc.color(100, 100, 100));
         } else {
             this.node.active = false;
         }

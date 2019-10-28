@@ -98,11 +98,11 @@ cc.Class({
         var column = 10;
         var squareBase = this.actSqPre.getComponent("SquareBase");
         squareBase.setOriginPos(column/2 - 2, line - 4);
-        if (baseData) {
-            squareBase.setBaseData(baseData);
-        }
         if (dirAndType) {
             squareBase.setDirAndType(dirAndType.dir, dirAndType.type);
+        }
+        if (baseData) {
+            squareBase.setBaseData(baseData);
         }
         this.actSqPre.x = 60 * column/2;
         this.actSqPre.y = 60 * (line - 2);
@@ -118,15 +118,34 @@ cc.Class({
         if (squareBase.canMoveDown(this.isValid.bind(this))) {
             this.moveDown();
         } else {
-            var orignPos = squareBase.getOriginPos();
+            var originPos = squareBase.getOriginPos();
             var baseData = squareBase.getBaseData();
-            // 将 主屏幕 act_layout pNode 里对应的模块置灰
+            if (originPos.y == 17 - 4) {
+                // gameOver;
+            } else {
+                // 将 主屏幕 act_layout pNode 里对应的模块置灰
+                for (var i=0; i < baseData.length;i++) {
+                    for (var j=0; j<baseData[i].length; j++) {
+                        if (baseData[i][j] == 1) {
+                            if (this.checkSq(originPos, j, 3-i)) {
+                                // 找到对应的 pNode里面的方块， 颜色置灰色
+                                this.actSqDataArr[originPos.y+3-i][originPos.x + j] = 2;
+                                this.actSqArr[originPos.y + 3-i][originPos.x + j].getComponent("Square").setStatus(2);
+                            }
+                        }
+                    }
+                }
+                // 检查消行
+                // todo
 
-            var nextBaseData = this.nextSq.getComponent("SquareBase").getBaseData();
-            var nextDirAndtype = this.nextSq.getComponent("SquareBase").getDirAndType();
-            this.resetActSpPre(nextBaseData, nextDirAndtype);
-            this.randomSqNext();
-            
+                // 从next 里面获取下一个方块到主屏幕
+                var nextBaseData = this.nextSq.getComponent("SquareBase").getBaseData();
+                var nextDirAndtype = this.nextSq.getComponent("SquareBase").getDirAndType();
+                this.resetActSpPre(nextBaseData, nextDirAndtype);
+
+                //重新产生下一个方块
+                this.randomSqNext();
+            }
         }
     },
 
