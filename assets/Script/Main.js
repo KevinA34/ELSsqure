@@ -43,12 +43,20 @@ cc.Class({
 
     onLoad () {
         var that = this;
-        this.timeCnt = 0;
-        this.lb_scoreCnt = 0;
-        this.schedule(that.updateTimeAndActSquare, 1);
-        this.initPNode();
+        
         this.initTouchEvent();
 
+        this.initPNode();
+        // 开始游戏
+        this.startGame();
+    },
+
+    startGame: function() {
+        this.actSqPre.active = true;
+        this.timeCnt = 0;
+        this.lb_scoreCnt = 0;
+        this.schedule(this.updateTimeAndActSquare, 1);
+        this.resetPNode();
         this.randomSqNext();
     },
 
@@ -145,6 +153,7 @@ cc.Class({
 
             // 产生到结束位置没有下降 表示已经结束了
             if (originPos.y == this.sq_line - 4) {
+                this.actSqPre.active = false;
                 // gameOver;
                 this.unschedule(this.updateTimeAndActSquare);
             } else {
@@ -274,16 +283,11 @@ cc.Class({
         }
     },
 
-    refreshPNode: function() {
+    resetPNode: function() {
         for (var i=0; i<this.sq_line; i++) {
             for (var j=0; j<this.sq_column; j++) {
-                if (this.actSqDataArr[i][j] == 1) {
-                    this.actSqArr[i][j].getComponent("Square").setStatus(1);
-                } else if (this.actSqDataArr[i][j] == 2) {
-                    this.actSqArr[i][j].getComponent("Square").setStatus(2);
-                } else {
-                    this.actSqArr[i][j].getComponent("Square").setStatus(0);
-                }
+                this.actSqArr[i][j].getComponent("Square").setStatus(0);
+                this.actSqDataArr[i][j] = 0;
             }
         }
     },
