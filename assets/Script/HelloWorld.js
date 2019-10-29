@@ -1,3 +1,6 @@
+var packageS = require("./protoBuf/proto.js");
+var mytestpackage = packageS.mytestpackage;
+
 cc.Class({
     extends: cc.Component,
 
@@ -13,8 +16,17 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        var that = this;
         this.label.string = this.text;
-        
+
+        var message = mytestpackage.testRequest.create({id:1, name: "my first protoBuf example"})
+        var buffer = mytestpackage.testRequest.encode(message).finish();
+        this.scheduleOnce(function() {
+            var desc = mytestpackage.testRequest.decode(buffer);
+            console.log('------');
+            console.log(JSON.stringify(desc));
+            that.label.string = desc.name;
+        }, 1);
     },
 
     showGameScene: function() {

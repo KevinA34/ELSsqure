@@ -1,0 +1,8 @@
+package mytestpackage;
+syntax = "proto3";
+
+
+message testRequest {
+    required int32 id = 1;
+    required string name = 2;
+}
