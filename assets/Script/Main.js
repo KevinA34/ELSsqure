@@ -55,7 +55,7 @@ cc.Class({
         this.actSqPre.active = true;
         this.timeCnt = 0;
         this.lb_scoreCnt = 0;
-        this.schedule(this.updateTimeAndActSquare, 1);
+        this.schedule(this.updateTimeAndActSquare, 0.5);
         this.resetPNode();
         this.randomSqNext();
     },
