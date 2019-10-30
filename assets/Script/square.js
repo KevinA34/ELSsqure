@@ -41,5 +41,5 @@ var Square = cc.Class({
 });
 
 // module.exports.square = square;
-module.exports = Square;
+// module.exports = Square;
 
