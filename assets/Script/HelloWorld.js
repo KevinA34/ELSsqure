@@ -1,4 +1,4 @@
-var packageS = require("./protoBuf/proto.js");
+var packageS = require("proto");
 var mytestpackage = packageS.mytestpackage;
 
 cc.Class({

@@ -1,5 +1,5 @@
 
-var sceneList = require("gameData.js").sceneList;
+var sceneList = require("gameData").sceneList;
 
 var LoadList = cc.Class({
     extends: cc.Component,
