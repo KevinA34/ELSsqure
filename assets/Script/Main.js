@@ -37,6 +37,8 @@ cc.Class({
         ],
         sq_column: 10,
         sq_line: 17,
+        game_status: true,
+        btn_pause: cc.Button,
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -51,7 +53,17 @@ cc.Class({
         this.startGame();
     },
 
+    pauseGame: function() {
+        this.game_status = !this.game_status;
+        this.btn_pause.node.getChildByName("Background").getChildByName("Label").getComponent(cc.Label).string = this.game_status ? "暂停" : "继续游戏";
+    },
+
     startGame: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
+
         this.actSqPre.active = true;
         this.timeCnt = 0;
         this.lb_scoreCnt = 0;
@@ -64,8 +76,16 @@ cc.Class({
         cc.director.loadScene("helloworld");
     },
 
+    getGameStatus: function() {
+        return this.game_status;
+    },
+
     updateTimeAndActSquare: function() {
         var that = this;
+        if (!that.getGameStatus()) {
+            // 暂停
+            return;
+        }
         that.timeCnt += 1;
         that.lb_time.string = "时间：" + that.timeCnt;
         that.checkFallDownAndMknext();
@@ -249,12 +269,20 @@ cc.Class({
         }
     },
     moveRotate: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
         var squareBase = this.actSqPre.getComponent("SquareBase");
         if (squareBase.canRotatea(this.isValid.bind(this))) {
             squareBase.rotateSquare();
         }
     },
     moveLeft: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
         var squareBase = this.actSqPre.getComponent("SquareBase");
         if (squareBase.canLeft(this.isValid.bind(this))) {
             this.actSqPre.x -= 60;
@@ -262,6 +290,10 @@ cc.Class({
         }
     },
     moveRight: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
         var squareBase = this.actSqPre.getComponent("SquareBase");
         if (squareBase.canRight(this.isValid.bind(this))) {
             this.actSqPre.x += 60;
@@ -269,6 +301,10 @@ cc.Class({
         }
     },
     moveDown: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
         var squareBase = this.actSqPre.getComponent("SquareBase");
         if (squareBase.canMoveDown(this.isValid.bind(this))) {
             this.actSqPre.y -= 60;
@@ -276,6 +312,10 @@ cc.Class({
         }
     },
     fallDown: function() {
+        if (!this.getGameStatus()) {
+            // 暂停
+            return;
+        }
         var squareBase = this.actSqPre.getComponent("SquareBase");
         while(squareBase.canFallDown(this.isValid.bind(this)) && this.actSqPre.y > 0) {
             this.actSqPre.y -= 60;
