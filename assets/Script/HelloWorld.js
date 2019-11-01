@@ -18,8 +18,6 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
-        var that = this;
-        this.label.string = this.text;
 
         this.exampleProto();
 
@@ -27,6 +25,8 @@ cc.Class({
         
     },
     exampleProto: function() {
+        var that = this;
+        this.label.string = this.text;
         var message = mytestpackage.testRequest.create({id:1, name: "my first protoBuf example"})
         var buffer = mytestpackage.testRequest.encode(message).finish();
         this.scheduleOnce(function() {
