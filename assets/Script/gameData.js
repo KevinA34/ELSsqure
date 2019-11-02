@@ -103,6 +103,8 @@ var sceneList = [{url: "db://assets/cases/01_graphics/01_sprite/AnchorPoint.fire
 ]
 
 
+
+
 var gameData = {
     sceneList: sceneList,
 }
