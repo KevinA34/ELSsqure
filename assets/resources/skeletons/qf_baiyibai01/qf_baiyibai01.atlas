@@ -1,0 +1,83 @@
+
+qf_baiyibai01.png
+size: 256,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+images/allshadow
+  rotate: false
+  xy: 2, 135
+  size: 100, 110
+  orig: 100, 110
+  offset: 0, 0
+  index: -1
+images/arm
+  rotate: false
+  xy: 55, 9
+  size: 16, 18
+  orig: 16, 18
+  offset: 0, 0
+  index: -1
+images/fo
+  rotate: false
+  xy: 2, 29
+  size: 71, 104
+  orig: 71, 104
+  offset: 0, 0
+  index: -1
+images/guang
+  rotate: false
+  xy: 104, 166
+  size: 91, 79
+  orig: 91, 79
+  offset: 0, 0
+  index: -1
+images/hand1
+  rotate: false
+  xy: 147, 102
+  size: 25, 50
+  orig: 25, 50
+  offset: 0, 0
+  index: -1
+images/hand2
+  rotate: true
+  xy: 2, 2
+  size: 25, 51
+  orig: 25, 51
+  offset: 0, 0
+  index: -1
+images/hand3
+  rotate: false
+  xy: 147, 62
+  size: 24, 38
+  orig: 24, 38
+  offset: 0, 0
+  index: -1
+images/lu
+  rotate: true
+  xy: 75, 33
+  size: 100, 70
+  orig: 100, 70
+  offset: 0, 0
+  index: -1
+images/lu2
+  rotate: true
+  xy: 197, 172
+  size: 73, 32
+  orig: 73, 32
+  offset: 0, 0
+  index: -1
+images/xiang
+  rotate: true
+  xy: 104, 154
+  size: 10, 75
+  orig: 10, 75
+  offset: 0, 0
+  index: -1
+images/yan
+  rotate: false
+  xy: 231, 172
+  size: 10, 73
+  orig: 10, 73
+  offset: 0, 0
+  index: -1

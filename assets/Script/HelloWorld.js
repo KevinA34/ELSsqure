@@ -14,6 +14,10 @@ cc.Class({
         btn_start: cc.Button,
         hw_interval: 1,
         timeCount: 0,
+        bg_muisc: {
+            default: null,
+            type: cc.AudioClip,
+        }
     },
 
     // use this for initialization
@@ -21,9 +25,24 @@ cc.Class({
 
         this.exampleProto();
 
-        this.exampleSpriteFrame();
-        
+        this.loadResFunc();
     },
+
+    loadResFunc: function() {
+        this.exampleSpriteFrame();
+        this.playBgMusic();
+    },
+    /**
+     * 声音加载
+     */
+    playBgMusic: function() {
+        cc.audioEngine.playMusic(this.bg_muisc, true);
+        // 动态加载
+        cc.loader.loadRes("voices/audio/niu.mp3", cc.AudioClip, function(err, voice) {
+            cc.audioEngine.playMusic(voice, true);
+        });
+    },
+
     exampleProto: function() {
         var that = this;
         this.label.string = this.text;
@@ -36,6 +55,10 @@ cc.Class({
             that.label.string = desc.name;
         }, 1);
     },
+
+    /**
+     * 图片加载
+     */
     exampleSpriteFrame: function() {
         var cocos = this.node.getChildByName("cocos");
         cocos.getComponent(cc.Sprite).spriteFrame = new cc.SpriteFrame(cc.url.raw("resources/helloworld/snow.png"));
@@ -45,6 +68,16 @@ cc.Class({
             // myImage.spriteFrame = new cc.SpriteFrame(spFrame);
             myImage.spriteFrame = spFrame;
         })
+
+        var myImage2 = cc.find("Canvas/myImage2").getComponent(cc.Sprite);
+        this.scheduleOnce(function() {
+            cc.loader.loadRes("plists/cards.plist", cc.SpriteAtlas, function(err, atlas) {
+                // 方法一  通过数组加载
+                // myImage2.spriteFrame = atlas.getSpriteFrames()[0];
+                // 方法二  通过名字加载
+                myImage2.spriteFrame = atlas.getSpriteFrame("bug_orange_1");
+            });
+        }, 3);
     },
 
     showGameScene: function() {

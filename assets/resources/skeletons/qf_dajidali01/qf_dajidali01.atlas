@@ -1,0 +1,146 @@
+
+qf_dajidali01.png
+size: 512,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+allshadow
+  rotate: true
+  xy: 222, 148
+  size: 100, 110
+  orig: 100, 110
+  offset: 0, 0
+  index: -1
+beard_l
+  rotate: false
+  xy: 97, 60
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+beard_r
+  rotate: false
+  xy: 83, 30
+  size: 30, 28
+  orig: 30, 28
+  offset: 0, 0
+  index: -1
+cloud1
+  rotate: true
+  xy: 425, 171
+  size: 50, 34
+  orig: 50, 34
+  offset: 0, 0
+  index: -1
+cloud2
+  rotate: false
+  xy: 334, 138
+  size: 42, 30
+  orig: 42, 30
+  offset: 0, 0
+  index: -1
+ear_l
+  rotate: true
+  xy: 100, 90
+  size: 37, 39
+  orig: 37, 39
+  offset: 0, 0
+  index: -1
+ear_r
+  rotate: false
+  xy: 471, 210
+  size: 39, 38
+  orig: 39, 38
+  offset: 0, 0
+  index: -1
+eye_l
+  rotate: true
+  xy: 141, 98
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+eye_r
+  rotate: true
+  xy: 181, 98
+  size: 29, 38
+  orig: 29, 38
+  offset: 0, 0
+  index: -1
+eyelid
+  rotate: true
+  xy: 115, 30
+  size: 28, 27
+  orig: 28, 27
+  offset: 0, 0
+  index: -1
+flowerl
+  rotate: false
+  xy: 461, 174
+  size: 43, 34
+  orig: 43, 34
+  offset: 0, 0
+  index: -1
+flowerr
+  rotate: false
+  xy: 2, 17
+  size: 79, 91
+  orig: 79, 91
+  offset: 0, 0
+  index: -1
+gan_l
+  rotate: false
+  xy: 100, 129
+  size: 112, 20
+  orig: 112, 20
+  offset: 0, 0
+  index: -1
+gan_u
+  rotate: false
+  xy: 334, 223
+  size: 135, 25
+  orig: 135, 25
+  offset: 0, 0
+  index: -1
+hd
+  rotate: false
+  xy: 378, 132
+  size: 41, 36
+  orig: 41, 36
+  offset: 0, 0
+  index: -1
+head
+  rotate: false
+  xy: 100, 151
+  size: 120, 97
+  orig: 120, 97
+  offset: 0, 0
+  index: -1
+mouth
+  rotate: false
+  xy: 334, 170
+  size: 89, 51
+  orig: 89, 51
+  offset: 0, 0
+  index: -1
+q
+  rotate: false
+  xy: 2, 110
+  size: 96, 138
+  orig: 96, 138
+  offset: 0, 0
+  index: -1
+sl
+  rotate: true
+  xy: 2, 2
+  size: 13, 37
+  orig: 13, 37
+  offset: 0, 0
+  index: -1
+sr
+  rotate: false
+  xy: 83, 71
+  size: 12, 37
+  orig: 12, 37
+  offset: 0, 0
+  index: -1
