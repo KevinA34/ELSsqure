@@ -17,6 +17,10 @@ cc.Class({
         bg_muisc: {
             default: null,
             type: cc.AudioClip,
+        },
+        sp_skeleton: {
+            default: null,
+            type: sp.Skeleton
         }
     },
 
@@ -30,7 +34,56 @@ cc.Class({
 
     loadResFunc: function() {
         this.exampleSpriteFrame();
-        this.playBgMusic();
+        // this.playBgMusic();
+        this.skeletonFunc();
+    },
+    /**
+     * 骨骼动画播放
+     */
+    skeletonFunc: function() {
+        // 固定skeleton 播放
+        var dragonDisplay =  this.sp_skeleton.node.getComponent(sp.Skeleton);
+        dragonDisplay.clearTracks();
+        dragonDisplay.addAnimation(0, "animation", false);
+        
+        // 动态skeleton 播放
+        let dragonDisplay2 = new cc.Node("spineNode");
+        dragonDisplay2.addComponent(sp.Skeleton);
+        dragonDisplay2.parent = cc.find("Canvas");
+        cc.loader.loadRes("skeletons/qf_dajidali01/qf_dajidali01.atlas", sp.SkeletonData, function(err, spine) {
+            if (err) {
+                cc.log(err.message);
+                return;
+            }
+            let ske = dragonDisplay2.getComponent(sp.Skeleton);
+            ske.skeletonData = spine;
+            ske.setAnimation(0, "animation", true);
+        })
+
+        // // 远程获取骨骼动画资源并加载
+        // this.scheduleOnce(function() {
+        //     let image = "http://192.168.199.199:8080/skeletons/qf_caishen01/qf_caishen01.png";
+        //     let skeJson = "http://192.168.199.199:8080/skeletons/qf_caishen01/qf_caishen01.json";
+        //     let atlas = "http://192.168.199.199:8080/skeletons/qf_caishen01/qf_caishen01.atlas";
+        //     cc.loader.load(image, (error, imageData) => {
+        //         cc.loader.load({url:atlas, type: 'txt'}, function(error, atlasData) {
+        //             cc.loader.load({url:skeJson, type:'txt'},(error, skeJsonData)=>{
+        //                 let newAtlas = new dragonBones.DragonBonesAtlasAsset();
+        //                 newAtlas.atlasJson = atlasData;
+        //                 newAtlas.texture = imageData;
+
+        //                 let asset = new dragonBones.DragonBonesAsset();
+        //                 asset.dragonBonesJson = skeJsonData;
+    
+        //                 dragonDisplay2.dragonAtlasAsset = newAtlas;
+        //                 dragonDisplay2.dragonAsset = asset;
+                        
+        //                 dragonDisplay2.armatureName = "animation";
+        //                 dragonDisplay2.addAnimation("animation", 0)
+        //             })
+        //         })
+        //     })
+        // }, 5);
     },
     /**
      * 声音加载
