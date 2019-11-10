@@ -99,13 +99,16 @@ cc.Class({
     exampleProto: function() {
         var that = this;
         this.label.string = this.text;
+        this.lb_anim = this.label.getComponent(cc.Animation);
         var message = mytestpackage.testRequest.create({id:1, name: "my first protoBuf example"})
         var buffer = mytestpackage.testRequest.encode(message).finish();
+        that.lb_anim.play("lable_scale");
         this.scheduleOnce(function() {
             var desc = mytestpackage.testRequest.decode(buffer);
             console.log('------');
             console.log(JSON.stringify(desc));
             that.label.string = desc.name;
+            that.lb_anim.play("lable_scale");
         }, 1);
     },
 
