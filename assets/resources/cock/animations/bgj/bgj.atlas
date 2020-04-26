@@ -1,0 +1,27 @@
+
+bgj.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+h1
+  rotate: false
+  xy: 2, 2
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+h2
+  rotate: false
+  xy: 234, 2
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1
+h3
+  rotate: false
+  xy: 466, 2
+  size: 230, 230
+  orig: 230, 230
+  offset: 0, 0
+  index: -1

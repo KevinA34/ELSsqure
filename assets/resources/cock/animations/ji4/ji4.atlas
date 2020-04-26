@@ -1,0 +1,153 @@
+
+ji4.png
+size: 1024,256
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ji4_bz
+  rotate: false
+  xy: 672, 17
+  size: 89, 116
+  orig: 89, 116
+  offset: 0, 0
+  index: -1
+ji4_d
+  rotate: false
+  xy: 2, 2
+  size: 80, 22
+  orig: 80, 22
+  offset: 0, 0
+  index: -1
+ji4_jg1
+  rotate: false
+  xy: 763, 73
+  size: 68, 64
+  orig: 68, 64
+  offset: 0, 0
+  index: -1
+ji4_jg2
+  rotate: false
+  xy: 833, 105
+  size: 10, 32
+  orig: 10, 32
+  offset: 0, 0
+  index: -1
+ji4_jg3
+  rotate: false
+  xy: 238, 60
+  size: 10, 28
+  orig: 10, 28
+  offset: 0, 0
+  index: -1
+ji4_st
+  rotate: false
+  xy: 534, 135
+  size: 169, 119
+  orig: 169, 119
+  offset: 0, 0
+  index: -1
+ji4_wb1
+  rotate: true
+  xy: 534, 18
+  size: 115, 136
+  orig: 115, 136
+  offset: 0, 0
+  index: -1
+ji4_wb2
+  rotate: false
+  xy: 388, 109
+  size: 144, 145
+  orig: 144, 145
+  offset: 0, 0
+  index: -1
+ji4_wb3
+  rotate: true
+  xy: 209, 90
+  size: 164, 177
+  orig: 164, 177
+  offset: 0, 0
+  index: -1
+ji4_wb4
+  rotate: true
+  xy: 2, 26
+  size: 79, 130
+  orig: 79, 130
+  offset: 0, 0
+  index: -1
+ji4_y
+  rotate: false
+  xy: 1002, 198
+  size: 20, 23
+  orig: 20, 23
+  offset: 0, 0
+  index: -1
+ji4_yc
+  rotate: true
+  xy: 860, 126
+  size: 128, 140
+  orig: 128, 140
+  offset: 0, 0
+  index: -1
+ji4_yj
+  rotate: true
+  xy: 763, 2
+  size: 69, 53
+  orig: 69, 53
+  offset: 0, 0
+  index: -1
+ji4_yt
+  rotate: false
+  xy: 197, 28
+  size: 39, 60
+  orig: 39, 60
+  offset: 0, 0
+  index: -1
+ji4_z1
+  rotate: true
+  xy: 1002, 223
+  size: 31, 20
+  orig: 31, 20
+  offset: 0, 0
+  index: -1
+ji4_z2
+  rotate: false
+  xy: 84, 2
+  size: 32, 14
+  orig: 32, 14
+  offset: 0, 0
+  index: -1
+ji4_zc1
+  rotate: true
+  xy: 705, 139
+  size: 115, 153
+  orig: 115, 153
+  offset: 0, 0
+  index: -1
+ji4_zc2
+  rotate: false
+  xy: 2, 107
+  size: 205, 147
+  orig: 205, 147
+  offset: 0, 0
+  index: -1
+ji4_zj1
+  rotate: true
+  xy: 134, 25
+  size: 80, 61
+  orig: 80, 61
+  offset: 0, 0
+  index: -1
+ji4_zj2
+  rotate: false
+  xy: 388, 92
+  size: 55, 15
+  orig: 55, 15
+  offset: 0, 0
+  index: -1
+ji4_zt
+  rotate: false
+  xy: 818, 2
+  size: 45, 69
+  orig: 45, 69
+  offset: 0, 0
+  index: -1
