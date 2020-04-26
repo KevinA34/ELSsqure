@@ -10,5 +10,10 @@ cc.Class({
 
     gotoBack: function() {
         cc.director.loadScene("helloworld");
-    }
+    },
+
+    startCockFight: function() {
+
+    },
+    
 })
