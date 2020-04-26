@@ -12,6 +12,7 @@ cc.Class({
         // defaults, set visually when attaching this script to the Canvas
         text: '欢迎来到我的俄罗斯方块游戏',
         btn_start: cc.Button,
+        btn_cock: cc.Button,
         hw_interval: 1,
         timeCount: 0,
         bg_muisc: {
@@ -138,6 +139,10 @@ cc.Class({
 
     showGameScene: function() {
         cc.director.loadScene("main");
+    },
+
+    showCockGame: function() {
+        cc.director.loadScene("cockGame");
     },
 
     // called every frame
