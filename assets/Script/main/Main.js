@@ -73,7 +73,7 @@ cc.Class({
     },
 
     showHelloWorldScene: function() {
-        cc.director.loadScene("helloworld");
+        cc.director.loadScene("mainScene");
     },
 
     getGameStatus: function() {

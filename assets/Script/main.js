@@ -138,7 +138,7 @@ cc.Class({
     },
 
     showGameScene: function() {
-        cc.director.loadScene("main");
+        cc.director.loadScene("ElsSquare");
     },
 
     showCockGame: function() {

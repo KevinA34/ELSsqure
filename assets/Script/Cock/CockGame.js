@@ -18,7 +18,7 @@ cc.Class({
     },
 
     gotoBack: function() {
-        cc.director.loadScene("helloworld");
+        cc.director.loadScene("mainScene");
     },
 
     startCockFight: function() {
