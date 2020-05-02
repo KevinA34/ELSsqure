@@ -66,28 +66,33 @@ cc.Class({
         console.log("----------CockSprite  onLoad ");
     },
 
-    initCock: function(info) {
+    initCock: function(info, _parent) {
         console.log("-------cockinfo: " + JSON.stringify(info));
         var self = this;
-        self.id = info.id
-        var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
-        // if (sp_ske) {
-        //     cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas", sp.SkeletonData, function(err, spine) {
-        //         if (err) {
-        //             console.log('err : ' + JSON.stringify(err));
-        //             return;
-        //         }
-        //         sp_ske.SkeletonData = spine;
-        //         self.playWait();
-        //     })
-        // }
+        self._parent = _parent;
+        // self.id = info.id
+        info.id = 4;
+       try {
+            console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
+            cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas", sp.SkeletonData, function(err, spine) {
+                if (err) {
+                    console.log('err : ' + JSON.stringify(err));
+                    return;
+                }
+                console.log("-----------initCock-cc.loader.loadRes : " + info.id);
+                var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
+
+                sp_ske.SkeletonData = spine;
+                self.playWait();
+            })
+        } catch(e) {
+            console.log('------------11');
+        }
     },
 
 
     playRun: function() {
-        console.log("-----------play run  ");
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
-        sp_ske.clearTrack();
         sp_ske.setAnimation(0, this.animNames[this.id][0], true);
         sp_ske.setCompleteListener(function() {
             console.log('------wancheng playRun')    
@@ -95,10 +100,15 @@ cc.Class({
     },
 
     playWait: function() {
-        console.log("------playWait" + this.id);
+        console.log("------playWait id: " + this.id);
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
-        sp_ske.clearTrack();
+        // sp_ske.clearTrack();
         try {
+            if (sp_ske) {
+                console.log(" ------------------ this.id: " + this.id);
+            }
+            console.log("----------this.animNames[this.id] : " + JSON.stringify(this.animNames[this.id]))
+            console.log(" ------------------ name :  " + this.animNames[this.id][2] );
             sp_ske.setAnimation(0, this.animNames[this.id][2], true);
             sp_ske.setCompleteListener(function() {
                 console.log('------wancheng playWait')    
@@ -109,26 +119,40 @@ cc.Class({
        
     },
 
-    playAttack: function() {
-
+    playAttack: function(btn, _id) {
+        var self = this;
+        var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
+        var attackId = _id ? _id : Math.floor(Math.random() * 3 + 3);
+        sp_ske.setAnimation(0, this.animNames[this.id][attackId], false);
+        sp_ske.setCompleteListener(function() {
+            self.playWait();
+        })
     },
 
     playWin: function() {
-        console.log("-----------playWin  ");
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
-        sp_ske.clearTrack();
+        var self = this;
         sp_ske.setAnimation(0, this.animNames[this.id][7], false);
         sp_ske.setCompleteListener(function() {
-            console.log('------wancheng playWin')    
+            self.playWait();  
         })
     },
 
     playLose: function() {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
-        sp_ske.clearTrack();
+        var self = this;
         sp_ske.setAnimation(0, this.animNames[this.id][6], false);
         sp_ske.setCompleteListener(function() {
-            console.log('------wancheng lose')    
+            self.playWait();
+        })
+    },
+
+    playChoose: function() {
+        var self = this;
+        var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
+        sp_ske.setAnimation(0, this.animNames[this.id][8], false);
+        sp_ske.setCompleteListener(function() {
+            self.playWait();
         })
     },
 

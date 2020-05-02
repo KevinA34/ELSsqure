@@ -46,6 +46,19 @@ cc.Class({
         var dragonDisplay =  this.sp_skeleton.node.getComponent(sp.Skeleton);
         dragonDisplay.clearTracks();
         dragonDisplay.addAnimation(0, "animation", false);
+
+        this.scheduleOnce(function() {
+            cc.loader.loadRes("skeletons/qf_dajidali01/qf_dajidali01.atlas", sp.SkeletonData, function(err, spine) {
+                if (err) {
+                    cc.log(err.message);
+                    return;
+                }
+                let ske = dragonDisplay.getComponent(sp.Skeleton);
+                ske.skeletonData = spine;
+                ske.setAnimation(0, "animation", true);
+            })
+        }, 10)
+       
         
         // 动态skeleton 播放
         let dragonDisplay2 = new cc.Node("spineNode");
