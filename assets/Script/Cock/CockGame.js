@@ -142,6 +142,7 @@ cc.Class({
             var cockJS0 = self.cock_0.getComponent("CockSprite");
             if (cock0Round.skill != null) {
                 cockJS0.playAttack(null, cock0Round.skill, function() {      
+                    cockJS0.setBloodProgress(cock1Round.hurt);
                     if (nowRdIndex == totalRounds) {
                         if (cock0Round.hp > 0) {
                             cockJS0.playWin(self.endFight.bind(self));
@@ -153,11 +154,13 @@ cc.Class({
                     }   
                 });
             } else {
+                cockJS0.setBloodProgress(0);
                 cockJS0.playRun();
             }
             var cockJS1 = self.cock_1.getComponent("CockSprite");
             if (cock1Round.skill != null) {
                 cockJS1.playAttack(null, cock1Round.skill, function() {
+                    cockJS1.setBloodProgress(cock0Round.hurt);
                     if (nowRdIndex == totalRounds) {
                         if (cock1Round.hp > 0) {
                             cockJS1.playWin(self.endFight.bind(self));
@@ -169,6 +172,7 @@ cc.Class({
                     }
                 });
             } else {
+                cockJS1.setBloodProgress(0);
                 cockJS1.playRun(function() {
                     allFinish();
                 });

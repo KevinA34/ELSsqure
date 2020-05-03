@@ -8,11 +8,19 @@ cc.Class({
         weight: 0,
         timeScale: 0,
         idType: 0,
+        hp: 100,
 
         sp_cock: {
             default: null,
             type: sp.Skeleton
         },
+
+        proBar: {
+            default: null,
+            type: cc.ProgressBar
+        },
+
+        lb_hp: cc.Label,
 
     },
 
@@ -63,12 +71,15 @@ cc.Class({
                 "ji4_xz", // 选中
             ],
         }
+        this.lb_hp.string = 100;
         console.log("----------CockSprite  onLoad ");
     },
 
     initCock: function(info, _parent) {
         console.log("-------cockinfo: " + JSON.stringify(info));
         var self = this;
+        self.lb_hp.string = 100;
+        self.hp = 100;
         self._parent = _parent;
         self.id = info.id
         // info.id = 4;
@@ -90,6 +101,14 @@ cc.Class({
         } catch(e) {
             console.log('------------initCock error');
         }
+    },
+
+    setBloodProgress: function(hurt) {
+        var self = this;
+        console.log(hurt);
+        self.hp -= hurt;
+        self.lb_hp.string = self.hp;
+        self.proBar.getComponent(cc.ProgressBar).progress = self.hp / 100;
     },
 
     changeCock: function() {
