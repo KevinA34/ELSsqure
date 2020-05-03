@@ -6,6 +6,7 @@ cc.Class({
     properties: {
         id:0,
         weight: 0,
+        timeScale: 0,
 
         sp_cock: {
             default: null,
@@ -94,6 +95,7 @@ cc.Class({
     playRun: function(cb) {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         sp_ske.setAnimation(0, this.animNames[this.id][0], true);
+        sp_ske.timeScale = this.timeScale;
         sp_ske.setCompleteListener(function() {
             console.log('------wancheng playRun')    ;
             if (cb) cb();
@@ -105,6 +107,7 @@ cc.Class({
         // sp_ske.clearTrack();
         try {
             sp_ske.setAnimation(0, this.animNames[this.id][2], true);
+            sp_ske.timeScale = this.timeScale;
             sp_ske.setCompleteListener(function() {
                 console.log('------wancheng playWait')    
             })
@@ -120,6 +123,7 @@ cc.Class({
         _id = parseInt(_id) + 3;
         var attackId = _id ? _id : Math.floor(Math.random() * 3 + 3);
         sp_ske.setAnimation(0, this.animNames[this.id][attackId], false);
+        sp_ske.timeScale = this.timeScale;
         sp_ske.setCompleteListener(function() {
             self.playWait();
             if (_cb) _cb();
@@ -129,9 +133,14 @@ cc.Class({
     playWin: function() {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         var self = this;
-        sp_ske.setAnimation(0, this.animNames[this.id][7], false);
+        self.winIndex = 0;
+        sp_ske.setAnimation(0, this.animNames[this.id][7], true);
+        sp_ske.timeScale = this.timeScale;
         sp_ske.setCompleteListener(function() {
-            self.playWait();  
+            self.winIndex++;
+            if (self.winIndex > 2) {
+                self.playWait();
+            }
         })
     },
 
@@ -139,8 +148,9 @@ cc.Class({
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         var self = this;
         sp_ske.setAnimation(0, this.animNames[this.id][6], false);
+        sp_ske.timeScale = this.timeScale;
         sp_ske.setCompleteListener(function() {
-            self.playWait();
+            // self.playWait();
         })
     },
 
@@ -148,6 +158,7 @@ cc.Class({
         var self = this;
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         sp_ske.setAnimation(0, this.animNames[this.id][8], false);
+        sp_ske.timeScale = this.timeScale;
         sp_ske.setCompleteListener(function() {
             self.playWait();
         })
@@ -159,9 +170,5 @@ cc.Class({
     setWeight: function(a) {
         this.weight = a;
     },
-
-    
-
-
 
 })

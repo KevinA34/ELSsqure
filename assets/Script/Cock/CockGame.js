@@ -17,6 +17,10 @@ cc.Class({
             type: cc.Layout
         },
 
+        btn_fight: cc.Button,
+
+        lay_test: cc.Layout,
+
     },
     
     onLoad: function() {
@@ -53,14 +57,25 @@ cc.Class({
             self.beginIndex++;
             console.log("------------beginIndex : " + self.beginIndex);
             if (self.beginIndex >= 2) {
-                self.startFight();
+                self.startCockFight(Math.floor(Math.random() * 2));
             }
         });
 
     },
 
-    startFight: function() {
+    endFight: function() {
         var self = this;
+        console.log("-------------endFight");
+        self.btn_fight.node.active = true;
+        self.lay_test.node.active = true;
+    },
+
+    startCockFight: function() {
+        var self = this;
+
+        self.btn_fight.node.active = false;
+        self.lay_test.node.active = false;
+
 
         if (!self.cock_0 || !self.cock_1) {
             return;
@@ -74,26 +89,31 @@ cc.Class({
         var totalRounds = fightRounds[0].length;
         console.log("----------totalRound: " + totalRounds);
 
-        var roundIndex = 0;
+        var nowRdIndex = 0;
         var roundFight = function() {
-            console.log("----------roundIndex: " + JSON.stringify(roundIndex));
+            console.log("----------nowRdIndex: " + JSON.stringify(nowRdIndex));
             var finishNum = 0;
             var allFinish = function() {
                 finishNum++;
                 if (finishNum >= 2) {
-                    console.log("---------- two finished Attack " + finishNum);
-                    if (roundIndex < totalRounds) {
-                        roundFight();
-                    }
+                    roundFight();
                 }
             }
-            var cock0Round = cock0_fight[roundIndex];
-            var cock1Round = cock1_fight[roundIndex];
-            roundIndex ++;
+            var cock0Round = cock0_fight[nowRdIndex];
+            var cock1Round = cock1_fight[nowRdIndex];
+            nowRdIndex ++;
             var cockJS0 = self.cock_0.getComponent("CockSprite");
             if (cock0Round.skill != null) {
-                cockJS0.playAttack(null, cock0Round.skill, function() {            
-                    allFinish();
+                cockJS0.playAttack(null, cock0Round.skill, function() {      
+                    if (nowRdIndex == totalRounds) {
+                        if (cock0Round.hp > 0) {
+                            cockJS0.playWin(this.endFight);
+                        } else {
+                            cockJS0.playLose();
+                        }
+                    } else {
+                        allFinish();
+                    }   
                 });
             } else {
                 cockJS0.playRun();
@@ -101,7 +121,15 @@ cc.Class({
             var cockJS1 = self.cock_1.getComponent("CockSprite");
             if (cock1Round.skill != null) {
                 cockJS1.playAttack(null, cock1Round.skill, function() {
-                    allFinish();
+                    if (nowRdIndex == totalRounds) {
+                        if (cock1Round.hp > 0) {
+                            cockJS1.playWin(this.endFight);
+                        } else {
+                            cockJS1.playLose();
+                        }
+                    } else {
+                        allFinish();
+                    }
                 });
             } else {
                 cockJS1.playRun(function() {
@@ -118,10 +146,6 @@ cc.Class({
 
     gotoBack: function() {
         cc.director.loadScene("mainScene");
-    },
-
-    startCockFight: function() {
-
     },
 
     getFightData : function (winIndex) {
