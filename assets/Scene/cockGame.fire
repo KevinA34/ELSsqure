@@ -661,7 +661,7 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 1,
+      "x": -1,
       "y": 1,
       "z": 1
     },
@@ -2629,7 +2629,7 @@
     "component": "",
     "_componentId": "1370dFFeU9Ge4/DTzZBG19/",
     "handler": "playAttack",
-    "customEventData": "1"
+    "customEventData": "0"
   },
   {
     "__type__": "cc.Node",
@@ -3003,7 +3003,7 @@
     "component": "",
     "_componentId": "1370dFFeU9Ge4/DTzZBG19/",
     "handler": "playAttack",
-    "customEventData": "2"
+    "customEventData": "1"
   },
   {
     "__type__": "cc.Node",
@@ -3377,7 +3377,7 @@
     "component": "",
     "_componentId": "1370dFFeU9Ge4/DTzZBG19/",
     "handler": "playAttack",
-    "customEventData": "3"
+    "customEventData": "2"
   },
   {
     "__type__": "cc.Node",

@@ -43,42 +43,71 @@ cc.Class({
             if (cockJS) {
                 console.log("------  ji2: initCock");
                 cockJS.initCock(ji2Map, self);
-
-                // self.startFight();
             } else {
                 console.log("--------22222 =  ji2 error");
             }
         }, 1)
+
+        self.beginIndex = 0;
+        cc.director.on("beginFight", function() {
+            self.beginIndex++;
+            console.log("------------beginIndex : " + self.beginIndex);
+            if (self.beginIndex >= 2) {
+                self.startFight();
+            }
+        });
 
     },
 
     startFight: function() {
         var self = this;
 
-        console.log("-------startFight" + startFight);
-        var fightData = self.getFightData(Mathf.floor(Math.random()));
-
+        if (!self.cock_0 || !self.cock_1) {
+            return;
+        }
+        var fightData = self.getFightData(Math.floor(Math.random()));
         var fightRounds = fightData.fight;
-
         console.log("-------fightData" + JSON.stringify(fightData));
 
+        var cock0_fight = fightRounds[0];
+        var cock1_fight = fightRounds[1];
+        var totalRounds = fightRounds[0].length;
+        console.log("----------totalRound: " + totalRounds);
+
         var roundIndex = 0;
-        return;
         var roundFight = function() {
-            var roundData = fightRounds[roundIndex];
-            console.log("----------roundIndex: " + roundIndex);
-            console.log("----------roundData: " + roundData);
-            roundIndex ++;
-            var cockJS1 = self.cock_1.getComponent("CockSprite");
-            cockJS1.playAttack();
-
-            var cockJS2 = self.cock_2.getComponent("CockSprite");
-            cockJS2.playAttack();
-
-            if (roundIndex < fightRounds.length) {
-                roundFight();
+            console.log("----------roundIndex: " + JSON.stringify(roundIndex));
+            var finishNum = 0;
+            var allFinish = function() {
+                finishNum++;
+                if (finishNum >= 2) {
+                    console.log("---------- two finished Attack " + finishNum);
+                    if (roundIndex < totalRounds) {
+                        roundFight();
+                    }
+                }
             }
-
+            var cock0Round = cock0_fight[roundIndex];
+            var cock1Round = cock1_fight[roundIndex];
+            roundIndex ++;
+            var cockJS0 = self.cock_0.getComponent("CockSprite");
+            if (cock0Round.skill != null) {
+                cockJS0.playAttack(null, cock0Round.skill, function() {            
+                    allFinish();
+                });
+            } else {
+                cockJS0.playRun();
+            }
+            var cockJS1 = self.cock_1.getComponent("CockSprite");
+            if (cock1Round.skill != null) {
+                cockJS1.playAttack(null, cock1Round.skill, function() {
+                    allFinish();
+                });
+            } else {
+                cockJS1.playRun(function() {
+                    allFinish();
+                });
+            }
         }
         roundFight();
     },
@@ -139,7 +168,7 @@ cc.Class({
         data.fight = []
         // 两只鸡平手，都挂了
         if (tmp0[tmp0.length - 1].hp == 0 && tmp1[tmp1.length - 1].hp == 0) {
-            return getFightData(winIndex)
+            return this.getFightData(winIndex);
         }
     
         // 计算那只鸡获胜

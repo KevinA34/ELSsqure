@@ -12,8 +12,6 @@ cc.Class({
             type: sp.Skeleton
         },
 
-        
-
     },
 
     onLoad: function() {
@@ -72,43 +70,40 @@ cc.Class({
         self._parent = _parent;
         // self.id = info.id
         info.id = 4;
-       try {
-            console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
-            cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas", sp.SkeletonData, function(err, spine) {
-                if (err) {
-                    console.log('err : ' + JSON.stringify(err));
-                    return;
-                }
-                console.log("-----------initCock-cc.loader.loadRes : " + info.id);
-                var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
+        // try {
+        //     console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
+        //     cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas", sp.SkeletonData, function(err, spine) {
+        //         if (err) {
+        //             console.log('err : ' + JSON.stringify(err));
+        //             return;
+        //         }
+        //         console.log("-----------initCock-cc.loader.loadRes : " + info.id);
+        //         var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
 
-                sp_ske.SkeletonData = spine;
-                self.playWait();
-            })
-        } catch(e) {
-            console.log('------------11');
-        }
+        //         sp_ske.SkeletonData = spine;
+        //         self.playWait();
+        //     })
+        // } catch(e) {
+        //     console.log('------------initCock error');
+        // }
+        // self.playWait();
+        cc.director.emit("beginFight");
     },
 
 
-    playRun: function() {
+    playRun: function(cb) {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         sp_ske.setAnimation(0, this.animNames[this.id][0], true);
         sp_ske.setCompleteListener(function() {
-            console.log('------wancheng playRun')    
+            console.log('------wancheng playRun')    ;
+            if (cb) cb();
         })
     },
 
     playWait: function() {
-        console.log("------playWait id: " + this.id);
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         // sp_ske.clearTrack();
         try {
-            if (sp_ske) {
-                console.log(" ------------------ this.id: " + this.id);
-            }
-            console.log("----------this.animNames[this.id] : " + JSON.stringify(this.animNames[this.id]))
-            console.log(" ------------------ name :  " + this.animNames[this.id][2] );
             sp_ske.setAnimation(0, this.animNames[this.id][2], true);
             sp_ske.setCompleteListener(function() {
                 console.log('------wancheng playWait')    
@@ -119,13 +114,15 @@ cc.Class({
        
     },
 
-    playAttack: function(btn, _id) {
+    playAttack: function(btn, _id, _cb) {
         var self = this;
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
+        _id = parseInt(_id) + 3;
         var attackId = _id ? _id : Math.floor(Math.random() * 3 + 3);
         sp_ske.setAnimation(0, this.animNames[this.id][attackId], false);
         sp_ske.setCompleteListener(function() {
             self.playWait();
+            if (_cb) _cb();
         })
     },
 
