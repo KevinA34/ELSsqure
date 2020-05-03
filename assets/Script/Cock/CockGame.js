@@ -107,7 +107,7 @@ cc.Class({
                 cockJS0.playAttack(null, cock0Round.skill, function() {      
                     if (nowRdIndex == totalRounds) {
                         if (cock0Round.hp > 0) {
-                            cockJS0.playWin(this.endFight);
+                            cockJS0.playWin(self.endFight);
                         } else {
                             cockJS0.playLose();
                         }
@@ -123,7 +123,7 @@ cc.Class({
                 cockJS1.playAttack(null, cock1Round.skill, function() {
                     if (nowRdIndex == totalRounds) {
                         if (cock1Round.hp > 0) {
-                            cockJS1.playWin(this.endFight);
+                            cockJS1.playWin(self.endFight);
                         } else {
                             cockJS1.playLose();
                         }
