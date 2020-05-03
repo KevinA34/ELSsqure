@@ -7,6 +7,7 @@ cc.Class({
         id:0,
         weight: 0,
         timeScale: 0,
+        idType: 0,
 
         sp_cock: {
             default: null,
@@ -69,26 +70,47 @@ cc.Class({
         console.log("-------cockinfo: " + JSON.stringify(info));
         var self = this;
         self._parent = _parent;
-        // self.id = info.id
-        info.id = 4;
-        // try {
-        //     console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
-        //     cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas", sp.SkeletonData, function(err, spine) {
-        //         if (err) {
-        //             console.log('err : ' + JSON.stringify(err));
-        //             return;
-        //         }
-        //         console.log("-----------initCock-cc.loader.loadRes : " + info.id);
-        //         var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
+        self.id = info.id
+        // info.id = 4;
+        try {
+            console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
+            cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id, sp.SkeletonData, function(err, spine) {
+                if (err) {
+                    console.log('err : ' + JSON.stringify(err));
+                    return;
+                }
+                if (cc.isValid(self.sp_cock)) {
+                    var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
+                    sp_ske.skeletonData = spine;
+                    self.playWait();
+                    cc.director.emit("showCock", self.idType);
+                    cc.director.emit("beginFight");
+                }
+            })
+        } catch(e) {
+            console.log('------------initCock error');
+        }
+    },
 
-        //         sp_ske.SkeletonData = spine;
-        //         self.playWait();
-        //     })
-        // } catch(e) {
-        //     console.log('------------initCock error');
-        // }
-        // self.playWait();
-        cc.director.emit("beginFight");
+    changeCock: function() {
+        var self = this;
+        var info = {};
+        info.id = 4;
+        try {
+            cc.loader.loadRes("cock/animations/ji" + info.id + "/ji" + info.id, sp.SkeletonData, function(err, spine) {
+                if (err) {
+                    console.log('err : ' + JSON.stringify(err));
+                    return;
+                }
+                console.log(typeof spine);
+                var sp_ske = self.sp_cock.getComponent(sp.Skeleton);
+                self.id = info.id;
+                sp_ske.skeletonData = spine;
+                self.playWait();
+            })
+        } catch(e) {
+            console.log('------------initCock error');
+        }
     },
 
 
@@ -105,8 +127,9 @@ cc.Class({
     playWait: function() {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         // sp_ske.clearTrack();
+        var _id = Math.floor(Math.random() * 2) + 1;
         try {
-            sp_ske.setAnimation(0, this.animNames[this.id][2], true);
+            sp_ske.setAnimation(0, this.animNames[this.id][_id], true);
             sp_ske.timeScale = this.timeScale;
             sp_ske.setCompleteListener(function() {
                 console.log('------wancheng playWait')    

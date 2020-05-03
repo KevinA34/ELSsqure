@@ -26,6 +26,53 @@ cc.Class({
     onLoad: function() {
         var self = this;
 
+        self.initCockInfo();
+
+        self.beginIndex = 0;
+        cc.director.on("beginFight", function() {
+            self.beginIndex++;
+            if (self.beginIndex >= 2) {
+                self.beginIndex = 0;
+                self.startCockFight(Math.floor(Math.random() * 2));
+            }
+        });
+
+        cc.director.on("showCock", function(param) {
+            if (self && self["cock_" + param])
+                self["cock_" + param].node.active = true;
+        });
+    },
+
+    onDestroy: function() {
+        console.log("--------onDestroy1111")
+        cc.director.off("beginFight",function() {
+            self.beginIndex++;
+            if (self.beginIndex >= 2 && self) {
+                self.beginIndex = 0;
+                self.startCockFight(Math.floor(Math.random() * 2));
+            }
+        });
+        cc.director.off("showCock", function(param) {
+            if (self && self["cock_" + param])
+                self["cock_" + param].node.active = true;
+        });
+
+        console.log("--------onDestroy222222")
+    },
+
+    endFight: function() {
+        var self = this;
+        console.log("-------------endFight");
+        self.btn_fight.node.active = true;
+        self.lay_test.node.active = true;
+
+        self.initCockInfo();
+    },
+
+    initCockInfo: function() {
+        var self = this;
+        self.cock_0.node.active = false;
+        self.cock_1.node.active = false;
         this.scheduleOnce(function() {
             var ji1Map = {
                 id: Math.floor(Math.random() * 4) + 1,
@@ -38,11 +85,18 @@ cc.Class({
             } else {
                 console.log("--------11111  ji1  error");
             }
-    
+
             var ji2Map = {
                 id: Math.floor(Math.random() * 4) + 1,
                 weight: Math.random() * 2 + 4
             }
+            var randJi2Id = function() {
+                if (ji2Map.id == ji1Map.id) {
+                    ji2Map.id = Math.floor(Math.random() * 4) + 1;
+                    randJi2Id();
+                }
+            }
+            randJi2Id();
             var cockJS = self.cock_1.getComponent("CockSprite");
             if (cockJS) {
                 console.log("------  ji2: initCock");
@@ -50,36 +104,19 @@ cc.Class({
             } else {
                 console.log("--------22222 =  ji2 error");
             }
-        }, 1)
-
-        self.beginIndex = 0;
-        cc.director.on("beginFight", function() {
-            self.beginIndex++;
-            console.log("------------beginIndex : " + self.beginIndex);
-            if (self.beginIndex >= 2) {
-                self.startCockFight(Math.floor(Math.random() * 2));
-            }
-        });
-
-    },
-
-    endFight: function() {
-        var self = this;
-        console.log("-------------endFight");
-        self.btn_fight.node.active = true;
-        self.lay_test.node.active = true;
+        }, 2)
     },
 
     startCockFight: function() {
         var self = this;
 
-        self.btn_fight.node.active = false;
-        self.lay_test.node.active = false;
-
-
         if (!self.cock_0 || !self.cock_1) {
             return;
         }
+
+        self.btn_fight.node.active = false;
+        self.lay_test.node.active = false;
+
         var fightData = self.getFightData(Math.floor(Math.random()));
         var fightRounds = fightData.fight;
         console.log("-------fightData" + JSON.stringify(fightData));
