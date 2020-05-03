@@ -130,7 +130,7 @@ cc.Class({
         })
     },
 
-    playWin: function() {
+    playWin: function(_cb) {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         var self = this;
         self.winIndex = 0;
@@ -140,6 +140,7 @@ cc.Class({
             self.winIndex++;
             if (self.winIndex > 2) {
                 self.playWait();
+                if (_cb) _cb();
             }
         })
     },
