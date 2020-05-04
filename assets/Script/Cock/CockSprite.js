@@ -25,7 +25,18 @@ cc.Class({
     },
 
     onLoad: function() {
-        this.animNames = {
+        this.lb_hp.string = 100;
+        console.log("----------CockSprite  onLoad ");
+    },
+
+    initCock: function(info, _parent) {
+        console.log("-------cockinfo: " + JSON.stringify(info));
+        var self = this;
+        self.lb_hp.string = 100;
+        self.hp = 100;
+        self._parent = _parent;
+        self.id = info.id;
+        self.animNames = {
             1: [
                 "ji1_bp", // 奔跑
                 "ji1_dj", // 待机
@@ -71,17 +82,7 @@ cc.Class({
                 "ji4_xz", // 选中
             ],
         }
-        this.lb_hp.string = 100;
-        console.log("----------CockSprite  onLoad ");
-    },
-
-    initCock: function(info, _parent) {
-        console.log("-------cockinfo: " + JSON.stringify(info));
-        var self = this;
-        self.lb_hp.string = 100;
-        self.hp = 100;
-        self._parent = _parent;
-        self.id = info.id
+        self.setBloodProgress(0);
         // info.id = 4;
         try {
             console.log("cock/animations/ji" + info.id + "/ji" + info.id + ".atlas");
@@ -105,8 +106,8 @@ cc.Class({
 
     setBloodProgress: function(hurt) {
         var self = this;
-        console.log(hurt);
         self.hp -= hurt;
+        self.hp = Math.max(0, self.hp);
         self.lb_hp.string = self.hp;
         self.proBar.getComponent(cc.ProgressBar).progress = self.hp / 100;
     },
@@ -133,7 +134,7 @@ cc.Class({
     },
 
 
-    playRun: function(cb) {
+    playRun: function(btn, cb) {
         var sp_ske = this.sp_cock.getComponent(sp.Skeleton);
         sp_ske.setAnimation(0, this.animNames[this.id][0], true);
         sp_ske.timeScale = this.timeScale;

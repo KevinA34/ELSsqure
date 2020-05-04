@@ -33,7 +33,7 @@ cc.Class({
             self.beginIndex++;
             if (self.beginIndex >= 2) {
                 self.beginIndex = 0;
-                self.startCockFight(Math.floor(Math.random() * 2));
+                // self.startCockFight(Math.floor(Math.random() * 2));
             }
         });
 
@@ -173,7 +173,7 @@ cc.Class({
                 });
             } else {
                 cockJS1.setBloodProgress(0);
-                cockJS1.playRun(function() {
+                cockJS1.playRun(null, function() {
                     allFinish();
                 });
             }

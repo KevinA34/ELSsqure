@@ -158,6 +158,10 @@ cc.Class({
         cc.director.loadScene("cockGame");
     },
 
+    show2048Scene: function() {
+        cc.director.loadScene("Game2048");
+    },
+
     // called every frame
     update: function (dt) {
         this.timeCount += dt;
