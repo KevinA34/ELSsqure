@@ -9,6 +9,8 @@ cc.Class({
         lay_base: cc.Prefab,
         lb_score: cc.Label,
 
+        lb_scoreNum: 0,
+
         baseArr: [],
         baseNumArr: [],
 
@@ -18,7 +20,7 @@ cc.Class({
         var self = this;
         self.totalNum = self.eachNum * self.eachNum;
         self.initGameScene();
-        self.randomNextSquare();
+        self.reStartGame();
     },
 
     onDestroy: function() {
@@ -31,6 +33,7 @@ cc.Class({
 
     reStartGame: function() {
         var self = this;
+        self.lb_scoreNum = 0;
         self.resetBaseArr();
         self.resetLayMain();
         self.randomNextSquare();
@@ -59,6 +62,11 @@ cc.Class({
         self.resetLayMain();
     },
 
+    refreshLbScore: function() {
+        var self = this;
+        self.lb_score.getComponent(cc.Label).string = "得分：" + self.lb_scoreNum;
+    },
+
     resetBaseArr: function() {
         var self = this;
         if (!self.baseNumArr.length) return;
@@ -69,7 +77,6 @@ cc.Class({
                 self.baseNumArr[i][j] = 1;
             }
         }
-        console.log("---------------33  self.baseNumArr : " + JSON.stringify(self.baseNumArr));
     },
 
     resetLayMain: function() {
@@ -80,6 +87,7 @@ cc.Class({
                 self.baseArr[i][j].getComponent("base2048").refreshLabel(self.baseNumArr[i][j]);
             }
         }
+        self.refreshLbScore();
     },
 
     // 出现2， 4 的几率 为 70 % 30
@@ -195,11 +203,8 @@ cc.Class({
 
     },
 
-    regroupLayMain: function(dir) {
+    clearBlankspace: function(dir) {
         var self = this;
-        console.log('-----------dir : ' + dir);
-
-        console.log("---------------11self.baseNumArr : " + JSON.stringify(self.baseNumArr));
         if (dir == 1) { // 向上
             for (var i=0; i<self.eachNum; i++) {
                 for (var j=self.eachNum - 1; j>0; j--) {
@@ -261,15 +266,75 @@ cc.Class({
                 }
             }
         }
+    },
 
-        console.log("---------------22self.baseNumArr : " + JSON.stringify(self.baseNumArr));
+    refreshBaseNumArr: function(dir) {
+        var self = this;
+        // console.log('-----------dir : ' + dir);
+
+        // console.log("---------------11self.baseNumArr : " + JSON.stringify(self.baseNumArr));
+        self.clearBlankspace(dir);
+        // console.log("---------------22self.baseNumArr : " + JSON.stringify(self.baseNumArr));
+
+        var self = this;
+        if (dir == 1) { // 向上
+            for (var i=0; i<self.eachNum; i++) {
+                for (var j=self.eachNum - 1; j>0; j--) {
+                    if (self.baseNumArr[j][i] > 1 && self.baseNumArr[j-1][i] > 1 
+                        && self.baseNumArr[j][i] == self.baseNumArr[j-1][i]) {
+                            self.lb_scoreNum += self.baseNumArr[j-1][i];
+                            self.baseNumArr[j][i] += self.baseNumArr[j-1][i];
+                            self.baseNumArr[j-1][i] = 1;
+                    }
+                }
+            }
+        } else if (dir == 2) { // 向下
+            for (var i=0; i<self.eachNum; i++) {
+                for (var j=0; j<self.eachNum - 2; j++) {
+                    if (self.baseNumArr[j][i] > 1 && self.baseNumArr[j + 1][i] > 1
+                        && self.baseNumArr[j][i] == self.baseNumArr[j + 1][i]) {
+                            self.lb_scoreNum += self.baseNumArr[j + 1][i];
+                            self.baseNumArr[j][i] += self.baseNumArr[j + 1][i];
+                            self.baseNumArr[j + 1][i] = 1;
+                    }
+                }
+            }
+        } else if (dir == 3) { // 向左
+            for (var i=0; i<self.eachNum; i++) {
+                for (var j=0; j<self.eachNum - 2 ; j++) {
+                    if (self.baseNumArr[i][j] > 1 && self.baseNumArr[i][j + 1] > 1
+                        && self.baseNumArr[i][j] == self.baseNumArr[i][j + 1]) {
+                            self.lb_scoreNum += self.baseNumArr[i][j + 1];
+                            self.baseNumArr[i][j] += self.baseNumArr[i][j + 1];
+                            self.baseNumArr[i][j + 1] = 1;
+                    }
+                }
+            }
+        } else if (dir == 4) { // 向右
+            for (var i=0; i<self.eachNum; i++) {
+                for (var j=self.eachNum - 1; j>0; j--) {
+                    if (self.baseNumArr[i][j] > 1 && self.baseNumArr[i][j - 1] > 1
+                        && self.baseNumArr[i][j] == self.baseNumArr[i][j - 1]) {
+                            self.lb_scoreNum += self.baseNumArr[i][j - 1];
+                            self.baseNumArr[i][j] += self.baseNumArr[i][j - 1];
+                            self.baseNumArr[i][j - 1] = 1;
+                    }
+                }
+            }
+        }
+
+        // console.log("---------------55self.baseNumArr : " + JSON.stringify(self.baseNumArr));
+        self.clearBlankspace(dir);
+        // console.log("---------------66self.baseNumArr : " + JSON.stringify(self.baseNumArr));
+
+        // 根据
         self.resetLayMain();
     },
 
     showUpAction: function() {
         var self = this;
         // 向上
-        self.regroupLayMain(1);
+        self.refreshBaseNumArr(1);
         self.randomNextSquare(1);
 
     },
@@ -277,7 +342,7 @@ cc.Class({
     showDownAction: function() {
         var self = this;
         // 向下
-        self.regroupLayMain(2);
+        self.refreshBaseNumArr(2);
         self.randomNextSquare(2);
 
     },
@@ -285,7 +350,7 @@ cc.Class({
     showLeftAction: function() {
         var self = this;
         // 向左
-        self.regroupLayMain(3);
+        self.refreshBaseNumArr(3);
         self.randomNextSquare(3);
 
     },
@@ -293,7 +358,7 @@ cc.Class({
     showRightAction: function() {
         var self = this;
         // 向右
-        self.regroupLayMain(4);
+        self.refreshBaseNumArr(4);
         self.randomNextSquare(4);
 
     },

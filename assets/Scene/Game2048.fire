@@ -2896,6 +2896,7 @@
     "lb_score": {
       "__id__": 9
     },
+    "lb_scoreNum": 0,
     "baseArr": [],
     "baseNumArr": [],
     "_id": "9d0IlGDxFKT7Je/WMA7LmO"
