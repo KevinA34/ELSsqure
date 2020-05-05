@@ -33,19 +33,27 @@ cc.Class({
         if (num == 1) {
             this.setColor("#998F89");
         } else if (num == 2) {
-            this.setColor("#57B645");
-        } else if (num == 4) {
+            
             this.setColor("#C8E49E");
+        } else if (num == 4) {
+            this.setColor("#E0C558");
+
         } else if (num == 8) {
             this.setColor("#EE9461");
+
         } else if (num == 16) {
-            this.setColor("#E0C558");
-        } else if (num == 32) {
             this.setColor("#5BE4A2");
+
+        } else if (num == 32) {
+            this.setColor("#57B645");
+
+
         } else if (num == 64) {
-            this.setColor("#E66A6A");
-        } else if (num == 128) {
             this.setColor("#AAAA4F");
+
+        } else if (num == 128) {
+            this.setColor("#E66A6A");
+
         } else if (num == 256) {
             this.setColor("#45B1B6");
         } else if (num == 512) {

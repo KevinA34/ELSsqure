@@ -290,7 +290,7 @@ cc.Class({
             }
         } else if (dir == 2) { // 向下
             for (var i=0; i<self.eachNum; i++) {
-                for (var j=0; j<self.eachNum - 2; j++) {
+                for (var j=0; j<self.eachNum - 1; j++) {
                     if (self.baseNumArr[j][i] > 1 && self.baseNumArr[j + 1][i] > 1
                         && self.baseNumArr[j][i] == self.baseNumArr[j + 1][i]) {
                             self.lb_scoreNum += self.baseNumArr[j + 1][i];
@@ -301,7 +301,7 @@ cc.Class({
             }
         } else if (dir == 3) { // 向左
             for (var i=0; i<self.eachNum; i++) {
-                for (var j=0; j<self.eachNum - 2 ; j++) {
+                for (var j=0; j<self.eachNum - 1 ; j++) {
                     if (self.baseNumArr[i][j] > 1 && self.baseNumArr[i][j + 1] > 1
                         && self.baseNumArr[i][j] == self.baseNumArr[i][j + 1]) {
                             self.lb_scoreNum += self.baseNumArr[i][j + 1];
