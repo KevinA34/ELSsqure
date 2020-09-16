@@ -20,6 +20,7 @@ cc.Class({
         var self = this;
         self.totalNum = self.eachNum * self.eachNum;
         self.initGameScene();
+        self.initTouchEvent();
         self.reStartGame();
     },
 
@@ -29,6 +30,12 @@ cc.Class({
 
     gotoBack: function() {
         cc.director.loadScene("mainScene");
+    },
+
+    initTouchEvent: function() {
+        // self.lay_main
+        // Event
+        // self.lay_main.node.?÷
     },
 
     reStartGame: function() {

@@ -112,7 +112,7 @@ cc.Class({
 
     exampleProto: function() {
         var that = this;
-        this.label.string = this.text;
+        this.label.getComponent(cc.Label).string = this.text;
         this.lb_anim = this.label.getComponent(cc.Animation);
         var message = mytestpackage.testRequest.create({id:1, name: "my first protoBuf example"})
         var buffer = mytestpackage.testRequest.encode(message).finish();
@@ -121,7 +121,7 @@ cc.Class({
             var desc = mytestpackage.testRequest.decode(buffer);
             console.log('------');
             console.log(JSON.stringify(desc));
-            that.label.string = desc.name;
+            that.label.getComponent(cc.Label).string = desc.name;
             that.lb_anim.play("lable_scale");
         }, 1);
     },
@@ -160,6 +160,10 @@ cc.Class({
 
     show2048Scene: function() {
         cc.director.loadScene("Game2048");
+    },
+
+    showLisView: function() {
+        cc.director.loadScene("ListScene");
     },
 
     // called every frame
