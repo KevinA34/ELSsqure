@@ -43,9 +43,9 @@
     "_opacity": 255,
     "_color": {
       "__type__": "cc.Color",
-      "r": 29,
-      "g": 230,
-      "b": 2,
+      "r": 92,
+      "g": 241,
+      "b": 72,
       "a": 255
     },
     "_contentSize": {
@@ -56,12 +56,12 @@
     "_anchorPoint": {
       "__type__": "cc.Vec2",
       "x": 0.5,
-      "y": 0.5
+      "y": 0
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": 27.37,
-      "y": 587.587,
+      "x": 0,
+      "y": -34,
       "z": 0
     },
     "_scale": {
@@ -123,8 +123,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -136,
-      "y": 1.019,
+      "x": -134.912,
+      "y": 16.063,
       "z": 0
     },
     "_scale": {
@@ -195,9 +195,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "efdc1dd1-a64f-4b9b-aae9-39a36b4fdb07"
     },
-    "fileId": "d7xOTAEvlO/o25W8owwDXm",
+    "fileId": "2f4fFxiitFd545KpymfT6O",
     "sync": false
   },
   {
@@ -238,8 +238,8 @@
     },
     "_position": {
       "__type__": "cc.Vec3",
-      "x": -116,
-      "y": 1.019,
+      "x": -102.074,
+      "y": 15.539,
       "z": 0
     },
     "_scale": {
@@ -298,9 +298,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "efdc1dd1-a64f-4b9b-aae9-39a36b4fdb07"
     },
-    "fileId": "6fRNDfOqlIXJTZpZ4e0/qz",
+    "fileId": "a8DWAHZWtCvJA4JVfoD5v6",
     "sync": false
   },
   {
@@ -410,27 +410,31 @@
   },
   {
     "__type__": "cc.ClickEvent",
-    "target": {
-      "__id__": 1
-    },
+    "target": null,
     "component": "",
     "_componentId": "d3123NImxRHbKRw45e3M63B",
     "handler": "itemClick",
     "customEventData": ""
   },
   {
-    "__type__": "d3123NImxRHbKRw45e3M63B",
+    "__type__": "20fd2n4Y1BLfZGHW9Jg7j2F",
     "_name": "",
     "_objFlags": 0,
     "node": {
       "__id__": 1
     },
     "_enabled": true,
-    "lb_idx": {
-      "__id__": 3
+    "icon": null,
+    "title": {
+      "__id__": 2
     },
-    "lb_content": {
-      "__id__": 7
+    "selectedMode": 0,
+    "selectedFlag": null,
+    "selectedSpriteFrame": null,
+    "adaptiveSize": false,
+    "_selected": false,
+    "_btnCom": {
+      "__id__": 10
     },
     "_id": ""
   },
@@ -440,9 +444,9 @@
       "__id__": 1
     },
     "asset": {
-      "__id__": 0
+      "__uuid__": "efdc1dd1-a64f-4b9b-aae9-39a36b4fdb07"
     },
-    "fileId": "9d9gO2o4pGCp5WdQaTjTDE",
+    "fileId": "45le8flVdKmJejJGi0n0+3",
     "sync": false
   }
 ]
