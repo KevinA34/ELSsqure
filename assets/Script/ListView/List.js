@@ -466,6 +466,7 @@ cc.Class({
         // });
         t.content.removeAllChildren();
         t._inited = true;
+        cc.log("\n\n----------------111")
     },
     /**
      * 为了实现循环列表，必须覆写cc.ScrollView的某些函数
@@ -1357,10 +1358,13 @@ cc.Class({
     },
     //Update..
     update() {
+        console.log("-----------this.frameByFrameRenderNum: " + this.frameByFrameRenderNum);
+        console.log("-----------this._updateDone: " + this.frameByFrameRenderNum)
         if (this.frameByFrameRenderNum <= 0 || this._updateDone)
             return;
         // cc.log(this.displayData.length, this._updateCounter, this.displayData[this._updateCounter]);
         if (this._virtual) {
+            console.log("-----------111")
             let len = (this._updateCounter + this.frameByFrameRenderNum) > this.displayItemNum ? this.displayItemNum : (this._updateCounter + this.frameByFrameRenderNum);
             for (let n = this._updateCounter; n < len; n++) {
                 let data = this.displayData[n];
@@ -1388,6 +1392,7 @@ cc.Class({
                 this._updateCounter += this.frameByFrameRenderNum;
             }
         } else {
+            console.log("-----------222")
             if (this._updateCounter < this._numItems) {
                 let len = (this._updateCounter + this.frameByFrameRenderNum) > this._numItems ? this._numItems : (this._updateCounter + this.frameByFrameRenderNum);
                 for (let n = this._updateCounter; n < len; n++) {

@@ -1905,7 +1905,7 @@
       "height": 550
     },
     "_resize": 0,
-    "_N$layoutType": 0,
+    "_N$layoutType": 2,
     "_N$padding": 0,
     "_N$cellSize": {
       "__type__": "cc.Size",
@@ -2036,7 +2036,7 @@
     "lackCenter": false,
     "lackSlide": false,
     "_updateRate": 0,
-    "frameByFrameRenderNum": 0,
+    "frameByFrameRenderNum": 8,
     "renderEvent": {
       "__id__": 47
     },
