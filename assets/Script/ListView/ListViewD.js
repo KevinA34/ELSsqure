@@ -6,20 +6,27 @@ cc.Class({
     properties: {
         listV: List,
 
+        listH: List,
 
+        dataInfo: [],
     },
 
     onLoad: function () {
 
-        var data = [];
         for (var i=0; i<100; i++) {
-            data.push(i);
+            this.dataInfo.push({idx: i, str: "HelloWorld" + (i+1)});
         }
-        this.listV.numItems = data.length;
+        this.listV.numItems = this.dataInfo.length;
+
+        this.listH.numItems = data.length;
     },
 
-    onListVRender: function(item, _data) {
-        item.listItem.title.string = JSON.stringify(_data);
+    onListVRender: function(item, _idx) {
+        item.listItem.title.string = this.dataInfo[_idx].str;
+    },
+
+    onListHRender: function(item, _idx) {
+        item.listItem.title.string = this.dataInfo[_idx].str;
     },
 
     onDestroy: function() {
@@ -29,8 +36,5 @@ cc.Class({
     gotoBack: function() {
         cc.director.loadScene("mainScene");
     },
-
-    // update: function() {
-    // },
 
 })
