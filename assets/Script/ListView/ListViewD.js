@@ -14,11 +14,11 @@ cc.Class({
     onLoad: function () {
 
         for (var i=0; i<100; i++) {
-            this.dataInfo.push({idx: i, str: "HelloWorld" + (i+1)});
+            this.dataInfo.push({idx: i, str: "Hello" + (i+1)});
         }
         this.listV.numItems = this.dataInfo.length;
 
-        this.listH.numItems = data.length;
+        this.listH.numItems = this.dataInfo.length;
     },
 
     onListVRender: function(item, _idx) {
@@ -26,7 +26,10 @@ cc.Class({
     },
 
     onListHRender: function(item, _idx) {
-        item.listItem.title.string = this.dataInfo[_idx].str;
+        var pNode = item.listItem.node;
+        pNode.getChildByName("lb_content").getComponent(cc.Label).string = this.dataInfo[_idx].str;
+        pNode.getChildByName("title").getComponent(cc.Label).string = this.dataInfo[_idx].idx;
+        // pNode.string = this.dataInfo[_idx].idx;
     },
 
     onDestroy: function() {
